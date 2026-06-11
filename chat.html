@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - צ'אט</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/chatStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div id="chatListScreen" class="screen-view active">
+        <div class="header-simple">
+          <div class="back-btn" onclick="window.location.href='home.html'">
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </div>
+          <h1 class="page-title">הודעות</h1>
+        </div>
+
+        <div class="scroll-content">
+          <div class="conversations-list" id="convList">
+            <div
+              class="conv-item unread"
+              onclick="openChat('דניאל כהן', 'קולדפליי בפריז')"
+            >
+              <div class="avatar-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+                  class="avatar-img"
+                />
+                <div class="status-dot online"></div>
+              </div>
+              <div class="conv-info">
+                <div class="conv-top">
+                  <span class="conv-name">דניאל כהן</span>
+                  <span class="conv-time">10:45</span>
+                </div>
+                <div class="conv-bottom">
+                  <span class="conv-preview"
+                    >היי, הכרטיסים לקולדפליי עדיין רלוונטיים?</span
+                  >
+                  <div class="unread-badge">1</div>
+                </div>
+                <div class="product-tag">
+                  <i class="fas fa-ticket-alt"></i> קולדפליי בפריז
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="conv-item"
+              onclick="openChat('שירן לוי', 'נועה קירל בפארק')"
+            >
+              <div class="avatar-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
+                  class="avatar-img"
+                />
+              </div>
+              <div class="conv-info">
+                <div class="conv-top">
+                  <span class="conv-name">שירן לוי</span>
+                  <span class="conv-time">אתמול</span>
+                </div>
+                <div class="conv-bottom">
+                  <span class="conv-preview">תודה רבה! נתראה בהופעה :)</span>
+                  <i class="fas fa-check-double read-icon"></i>
+                </div>
+                <div class="product-tag gray">
+                  <i class="fas fa-music"></i> נועה קירל בפארק
+                </div>
+              </div>
+            </div>
+
+            <div class="conv-item">
+              <div class="avatar-wrap system-avatar">
+                <span class="material-symbols-rounded">support_agent</span>
+              </div>
+              <div class="conv-info">
+                <div class="conv-top">
+                  <span class="conv-name">תמיכה PlanB</span>
+                  <span class="conv-time">20/05</span>
+                </div>
+                <div class="conv-bottom">
+                  <span class="conv-preview"
+                    >היי שובל, ראינו שהייתה בעיה בהעלאת הכרטיס...</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="fab-new-chat" onclick="openNewChatModal()">
+          <span class="material-symbols-rounded">edit_square</span>
+        </button>
+      </div>
+
+      <div id="chatRoomScreen" class="screen-view">
+        <div class="chat-header">
+          <div class="back-btn-small" onclick="closeChat()">
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </div>
+          <div class="chat-user-info">
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+              class="header-avatar"
+              id="activeAvatar"
+            />
+            <div class="header-text">
+              <span class="header-name" id="activeName">שם משתמש</span>
+              <span class="header-status">מחובר/ת כעת</span>
+            </div>
+          </div>
+          <div class="header-actions">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+        </div>
+
+        <div class="product-context-bar">
+          <div class="pc-img">
+            <img
+              src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=100"
+            />
+          </div>
+          <div class="pc-info">
+            <span class="pc-title" id="activeProduct">שם האירוע</span>
+            <span class="pc-price">--₪</span>
+          </div>
+          <button class="pc-btn">פרטים</button>
+        </div>
+
+        <div class="messages-area" id="messagesContainer">
+          <div class="date-divider"><span>היום</span></div>
+        </div>
+
+        <div class="input-area">
+          <button class="attach-btn"><i class="fas fa-plus"></i></button>
+          <input
+            type="text"
+            id="msgInput"
+            placeholder="כתוב הודעה..."
+            onkeypress="handleEnter(event)"
+          />
+          <button class="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="newChatModal" class="modal-backdrop">
+        <div class="modal-sheet">
+          <div class="sheet-header">
+            <h3>שיחה חדשה</h3>
+            <span class="close-sheet" onclick="closeNewChatModal()"
+              >&times;</span
+            >
+          </div>
+
+          <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              class="new-chat-search"
+              placeholder="חפש שם משתמש או אירוע..."
+            />
+          </div>
+
+          <div class="results-list">
+            <div class="section-label">אנשי קשר והצעות</div>
+
+            <div
+              class="result-item"
+              onclick="startNewChatFromSearch('אבי לוי', 'מכבי ת״א נגד חיפה')"
+            >
+              <div class="avatar-wrap small">
+                <img
+                  src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100"
+                  class="avatar-img"
+                />
+              </div>
+              <div class="result-info">
+                <span class="result-name">אבי לוי</span>
+                <span class="result-sub"
+                  >מוכר כרטיס ל<strong>מכבי ת״א</strong></span
+                >
+              </div>
+            </div>
+
+            <div
+              class="result-item"
+              onclick="startNewChatFromSearch('נועה גולן', 'הופעה של חנן בן ארי')"
+            >
+              <div class="avatar-wrap small">
+                <img
+                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100"
+                  class="avatar-img"
+                />
+              </div>
+              <div class="result-info">
+                <span class="result-name">נועה גולן</span>
+                <span class="result-sub"
+                  >מתעניינת ב<strong>חנן בן ארי</strong></span
+                >
+              </div>
+            </div>
+
+            <div
+              class="result-item"
+              onclick="startNewChatFromSearch('רון שחר', 'פסטיבל התמר')"
+            >
+              <div class="avatar-wrap small">
+                <img
+                  src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100"
+                  class="avatar-img"
+                />
+              </div>
+              <div class="result-info">
+                <span class="result-name">רון שחר</span>
+                <span class="result-sub"
+                  >מוכר כרטיס ל<strong>פסטיבל התמר</strong></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/services/chatService.js"></script>
+    <script src="js/pages/chatPage.js"></script>
+  </body>
+</html>
+

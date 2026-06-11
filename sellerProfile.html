@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - פרופיל מוכר</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/productDetailsStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div
+        class="top-overlay-actions"
+        style="position: absolute; width: 100%; z-index: 10"
+      >
+        <div class="circle-btn" onclick="window.history.back()">
+          <span class="material-symbols-rounded">arrow_forward</span>
+        </div>
+      </div>
+
+      <div class="scroll-content" style="background: #f7f7f9">
+        <div class="seller-hero">
+          <div style="height: 40px"></div>
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200"
+            class="seller-hero-avatar" id="spAvatar"
+          />
+
+          <div class="seller-hero-name"><span id="spName">טוען...</span> <span class="material-symbols-rounded verified-badge">verified</span>
+          </div>
+
+          <div class="seller-hero-meta" id="spMeta">טוען...</div>
+
+          <a href="#" class="social-link">
+            <i class="fab fa-facebook"></i>
+            מאומת בפייסבוק
+          </a>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-value" id="spScore">—</div>
+            <div class="stat-label">דירוג</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="spSales">—</div>
+            <div class="stat-label">מכירות</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">1 ש'</div>
+            <div class="stat-label">זמן מענה</div>
+          </div>
+        </div>
+
+        <div class="section-header"><span id="spSectionTitle">עוד מכירות</span></div>
+        <div style="padding: 15px 20px" id="spListingsContainer">
+          <div
+            style="
+              background: white;
+              border-radius: 16px;
+              padding: 10px;
+              display: flex;
+              gap: 10px;
+              align-items: center;
+              margin-bottom: 10px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <img
+              src="pic/noakirel.jpg"
+              style="
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                object-fit: cover;
+              "
+              onerror="this.src = 'https://via.placeholder.com/60'"
+            />
+            <div style="flex: 1">
+              <div style="font-weight: 700; font-size: 14px">
+                נועה קירל בפארק
+              </div>
+              <div style="font-size: 12px; color: #999">
+                2 כרטיסים • גולדן רינג
+              </div>
+            </div>
+            <div style="font-weight: 800; color: #ff4757">300₪</div>
+          </div>
+        </div>
+
+        <div class="section-header">ביקורות אחרונות</div>
+        <div class="review-list">
+          <div class="review-item">
+            <div class="review-top">
+              <span class="reviewer-name">רועי לוי</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-text">אחלה דניאל, שלח את הכרטיס בשניות.</div>
+          </div>
+          <div class="review-item">
+            <div class="review-top">
+              <span class="reviewer-name">מאיה ש.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-text">תקשורת מעולה, ממליצה בחום.</div>
+          </div>
+        </div>
+
+        <div style="height: 40px"></div>
+      </div>
+
+      <div class="sticky-footer" style="padding: 15px 20px">
+        <button
+          class="buy-now-btn"
+          style="width: 100%; display: flex; justify-content: center; gap: 10px"
+          onclick="window.location.href = 'chat.html'"
+        >
+          <i class="fas fa-comment-alt"></i>
+          <span id="spChatName">שלח הודעה</span>
+        </button>
+      </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/sellerProfilePage.js"></script>
+  </body>
+</html>
+

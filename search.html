@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - חיפוש</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/searchStyle.css" />
+    <style>
+      .result-card { display:flex; align-items:center; gap:12px; background:#fff; border-radius:16px; padding:10px; margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06); cursor:pointer; }
+      .result-img { width:70px; height:70px; border-radius:14px; object-fit:cover; background:#eee; }
+      .result-info { flex:1; display:flex; flex-direction:column; gap:3px; }
+      .result-title { font-size:14px; font-weight:700; color:#2d3436; }
+      .result-loc { font-size:12px; color:#909090; }
+      .result-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:4px; }
+      .result-cat { font-size:11px; background:#f0f2f5; padding:3px 8px; border-radius:8px; color:#909090; }
+      .result-price { font-size:15px; font-weight:800; color:#ff4757; }
+      .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+      .filter-control { flex:1; min-width:80px; border:1px solid #e6e6e6; border-radius:12px; padding:9px 10px; font-size:13px; font-family:inherit; background:#fff; color:#2d3436; }
+      .filter-btn { border:none; border-radius:12px; padding:9px 16px; font-size:13px; font-weight:700; background:var(--primary-solid, #ff4757); color:#fff; cursor:pointer; }
+    </style>
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <header class="top-bar">
+        <h3>מה מחפשים?</h3>
+      </header>
+
+      <div class="scroll-content">
+        <div class="search-box">
+          <span class="material-symbols-rounded search-icon">search</span>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="הופעה, הצגה, או סתם חופש..."
+          />
+        </div>
+
+        <div class="filter-bar">
+          <select id="filterCategory" class="filter-control">
+            <option value="">כל הקטגוריות</option>
+          </select>
+          <input type="number" id="filterMinPrice" class="filter-control" placeholder="מחיר מ-" min="0" />
+          <input type="number" id="filterMaxPrice" class="filter-control" placeholder="עד" min="0" />
+          <button class="filter-btn" onclick="doSearch()">סנן</button>
+        </div>
+
+        <div class="search-grid">
+          <div class="quick-card">
+            <div class="qc-icon-circle icon-star">
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="qc-title">פופולריים</span>
+            <span class="qc-sub">מה שכולם קונים</span>
+          </div>
+
+          <div class="quick-card">
+            <div class="qc-icon-circle icon-new">
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <span class="qc-title">עלו עכשיו</span>
+            <span class="qc-sub">הכי טרי במערכת</span>
+          </div>
+
+          <div class="quick-card">
+            <div class="qc-icon-circle icon-last">
+              <i class="fas fa-hourglass-half"></i>
+            </div>
+            <span class="qc-title">סוגרים סופ"ש</span>
+            <span class="qc-sub">דילים לרגע האחרון</span>
+          </div>
+
+          <div class="quick-card">
+            <div class="qc-icon-circle icon-hot">
+              <i class="fas fa-fire"></i>
+            </div>
+            <span class="qc-title">דילים לוהטים</span>
+            <span class="qc-sub">מחירים שווים במיוחד</span>
+          </div>
+        </div>
+
+        <div id="searchResults" class="search-results"></div>
+      </div>
+
+      <nav class="bottom-nav">
+        <button class="nav-item" onclick="window.location.href='home.html'">
+          <span class="material-symbols-rounded nav-icon">home</span
+          ><span class="nav-label">בית</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="window.location.href='favorites.html'"
+        >
+          <span class="material-symbols-rounded nav-icon">favorite</span
+          ><span class="nav-label">מועדפים</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='newSell.html'">
+          <div class="inline-circle-btn">
+            <span class="material-symbols-rounded">add</span>
+          </div>
+          <span
+            class="nav-label"
+            style="font-weight: 700; color: var(--text-main)"
+            >מכירה</span
+          >
+        </button>
+        <button class="nav-item active">
+          <span class="material-symbols-rounded nav-icon">search</span
+          ><span class="nav-label">חיפוש</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='profile.html'">
+          <span class="material-symbols-rounded nav-icon">person</span
+          ><span class="nav-label">פרופיל</span>
+        </button>
+      </nav>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/searchPage.js"></script>
+  </body>
+</html>
+

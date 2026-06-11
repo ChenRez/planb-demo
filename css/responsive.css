@@ -1,0 +1,146 @@
+/*
+ * responsive.css — PlanB Demo
+ * מתאים את האפליקציה לכל סוגי מסכי מובייל
+ * לא נוגע בעיצוב המקורי — רק מסיר מגבלות גודל
+ */
+
+/* ─── בסיס: כל מובייל (עד 600px) ─── */
+@media screen and (max-width: 600px) {
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    background-color: #fff !important;
+  }
+
+  /* המיכל הראשי — תתפרס על כל המסך */
+  .mobile-container {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  /* ניווט תחתון — fixed בתחתית */
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100vw !important;
+    border-radius: 0 !important;
+    border-top: 1px solid #f0f0f0 !important;
+    padding: 10px 20px env(safe-area-inset-bottom, 8px) !important;
+    box-sizing: border-box !important;
+    z-index: 100 !important;
+  }
+
+  /* תוכן גלילה — מרווח לניווט תחתון */
+  .scroll-content {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* תפריט צד */
+  .side-menu {
+    width: 82vw !important;
+    max-width: 340px !important;
+  }
+
+  /* כרטיסים אופקיים — קצת יותר קטנים */
+  .event-card {
+    flex: 0 0 75vw !important;
+    max-width: 300px !important;
+  }
+
+  /* כרטיסים אנכיים — רוחב מלא */
+  .vertical-list {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* header */
+  .header {
+    padding-top: env(safe-area-inset-top, 16px) !important;
+  }
+
+  /* מודאלים — תתפרסנה על כל המסך */
+  .modal-backdrop {
+    position: fixed !important;
+  }
+  .modal-sheet {
+    max-height: 90dvh !important;
+  }
+
+  /* overlay מלא מסך */
+  .menu-overlay {
+    position: fixed !important;
+  }
+
+  /* side menu position */
+  .side-menu {
+    position: fixed !important;
+    height: 100dvh !important;
+  }
+}
+
+/* ─── מסכים בינוניים: טאבלט ומובייל גדול (601–900px) ─── */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  body {
+    background-color: #e0e0e0 !important;
+    align-items: flex-start !important;
+  }
+
+  .mobile-container {
+    max-width: 480px !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .bottom-nav {
+    position: sticky !important;
+    bottom: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* ─── דסקטופ (901px+) — עיצוב מקורי, לא נוגעים ─── */
+@media screen and (min-width: 901px) {
+  body {
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .mobile-container {
+    max-width: 448px;
+    height: 100vh;
+    max-height: 896px;
+    border-radius: 40px;
+  }
+}
+
+/* ─── iPhone notch / Dynamic Island תמיכה ─── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media screen and (max-width: 600px) {
+    .bottom-nav {
+      padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    }
+  }
+}

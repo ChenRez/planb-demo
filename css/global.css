@@ -1,0 +1,108 @@
+/* ─── גופן בסיסי ─── */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap");
+/* הערה: Material Symbols ו-Font Awesome מוגדרים ב-<link> בכל HTML בנפרד */
+
+/*
+ * global.css — PlanB Design System
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * קובץ זה מכיל:
+ *  1. משתני CSS (צבעים, גדלים, צללים) — משותפים לכל המסכים
+ *  2. Reset בסיסי
+ *  3. .mobile-container — מבנה כל מסך
+ *
+ * כלל ברזל: אל תשנה ערכים כאן בלי לעדכן את כל הצוות.
+ * כל מסך מוסיף קובץ CSS ייחודי משלו בנוסף לקובץ זה.
+ */
+
+/* ─────────────────────────────────────
+   1. משתני עיצוב גלובליים
+   ───────────────────────────────────── */
+:root {
+  /* --- פלטת הצבעים הראשית --- */
+  --fuchsia:        #d62962;
+  --mulberry:       #f44476;
+  --primary-solid:  #ff4757;
+  --dark-plum:      #4a152c;
+  --orange:         #e59941;
+  --accent-yellow:  #ffd166;
+  --cream:          #fdfbf7;
+
+  /* --- גרדיאנט המותג (כפתורים, הדגשות) --- */
+  --brand-gradient: linear-gradient(to right, #ed5f65 0%, #c53e5c 70%, #b34467 100%);
+
+  /* --- צבעי רקע ומשטחים --- */
+  --bg-app:     #f7f7f9;
+  --bg-surface: #ffffff;
+
+  /* --- טיפוגרפיה --- */
+  --text-main: #2d3436;
+  --text-sub:  #909090;
+
+  /* --- רדיוסים --- */
+  --radius-l: 40px;
+  --radius-m: 24px;
+  --radius-s: 16px;
+
+  /* --- ריווח --- */
+  --spacing-x: 20px;
+
+  /* --- צללים --- */
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 8px 25px rgba(197, 62, 92, 0.4);
+}
+
+/* ─────────────────────────────────────
+   2. Reset בסיסי
+   ───────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+/* ─────────────────────────────────────
+   3. Mobile Container — מבנה בסיסי משותף לכל מסך
+   ───────────────────────────────────── */
+.mobile-container {
+  width: 100%;
+  max-width: 448px;
+  height: 100vh;
+  max-height: 896px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(229, 153, 65, 0.3);
+  border-radius: var(--radius-l);
+}
+
+/* מסתיר את פס הגלילה בכל מסך */
+.mobile-container::-webkit-scrollbar { display: none; }
+.mobile-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─────────────────────────────────────
+   4. Material Symbols (Google Icons)
+   ───────────────────────────────────── */
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}

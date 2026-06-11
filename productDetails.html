@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - פרטי כרטיס</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/productDetailsStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div class="top-overlay-actions">
+        <div class="circle-btn" onclick="window.history.back()">
+          <span class="material-symbols-rounded">arrow_forward</span>
+        </div>
+        <div class="actions-right">
+          <div class="circle-btn" onclick="shareItem()">
+            <span class="material-symbols-rounded">share</span>
+          </div>
+          <div class="circle-btn" onclick="toggleHeart(this)">
+            <span class="material-symbols-rounded">favorite_border</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-content">
+        <div class="hero-image-container">
+          <img src="" alt="Event Image" class="hero-img" id="pImg" />
+          <div class="category-badge" id="pCat">קטגוריה</div>
+        </div>
+
+        <div class="details-sheet">
+          <div class="header-section">
+            <div class="date-badge">
+              <span class="day" id="pDay">--</span>
+              <span class="month" id="pMonth">--</span>
+            </div>
+            <div class="title-wrap">
+              <h1 class="event-title" id="pTitle">טוען פרטים...</h1>
+              <div class="location-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="pLoc">מיקום</span>
+              </div>
+            </div>
+          </div>
+          <div class="seller-card">
+            <div
+              class="seller-info"
+              id="sellerLink"
+              onclick="window.location.href = 'sellerProfile.html'"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+                class="seller-avatar"
+                id="sellerAvatar"
+              />
+              <div class="seller-text">
+                <span class="seller-name" id="sellerName">טוען...</span>
+                <div class="seller-rating">
+                  <i class="fas fa-star"></i> <span id="sellerScore">—</span>
+                  <span id="sellerSales" style="color: #999; font-weight: 400"></span>
+                </div>
+                <span style="font-size: 11px; color: #ed5f65"
+                  >צפה בפרופיל ></span
+                >
+              </div>
+            </div>
+
+            <button
+              class="chat-btn"
+              onclick="goToChat()"
+            >
+              <i class="fas fa-comment-alt"></i> צ'אט
+            </button>
+          </div>
+          <h3 class="section-label">פרטי הכרטיס</h3>
+          <div class="specs-grid" id="dynamicSpecs"></div>
+
+          <h3 class="section-label">תיאור מהמוכר</h3>
+          <p class="description-text" id="pDesc">תיאור ברירת מחדל...</p>
+
+          <div class="trust-box">
+            <div class="trust-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="trust-text">
+              <strong>PlanB Protect</strong>
+              <span
+                >הכסף שלך מוגן עד המימוש. המוכר לא יקבל את הכסף עד שהכרטיס
+                יעבוד.</span
+              >
+            </div>
+          </div>
+          <div class="split-ticket-section">
+            <div class="split-header">
+              <span class="split-title">כמות כרטיסים לרכישה</span>
+              <span class="split-subtitle">המוכר מאפשר פיצול</span>
+            </div>
+            <div class="quantity-selector">
+              <button class="qty-btn" onclick="updateQty(-1)">-</button>
+              <span id="qtyDisplay" class="qty-val">2</span>
+              <button class="qty-btn" onclick="updateQty(1)">+</button>
+            </div>
+          </div>
+          <div style="height: 80px"></div>
+        </div>
+      </div>
+
+      <div class="sticky-footer">
+        <div class="price-col">
+          <span class="label">מחיר לכרטיס</span>
+          <div class="price-wrap">
+            <span class="current-price" id="pPrice">0₪</span>
+            <span class="old-price" id="pOldPrice">0₪</span>
+          </div>
+        </div>
+        <button class="buy-now-btn" onclick="goToPayment()">
+          רכישה מאובטחת
+        </button>
+      </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/productDetailsPage.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>PlanB - דף הבית</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/homeStyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <!-- DEMO BANNER -->
+      <div style="background:linear-gradient(90deg,#ff4757,#c53e5c);color:#fff;text-align:center;font-size:11px;font-weight:800;padding:6px 12px;width:100%;box-sizing:border-box;letter-spacing:0.3px;flex-shrink:0;">
+        ✦ תצוגת דמו בלבד — ללא חיבור לשרת אמיתי ✦
+      </div>
+      <header class="header">
+        <img src="pic/Group.svg" alt="PlanB Logo" class="logo-image" />
+        <div class="user-greeting">
+          <h3 style="display: flex; align-items: center; gap: 6px">
+            היי <span id="greetingName">...</span>
+            <span
+              class="material-symbols-rounded"
+              style="
+                background: var(--brand-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 26px;
+              "
+            >
+              hand_gesture
+            </span>
+          </h3>
+        </div>
+
+        <div class="header-left-group">
+          <button
+            class="icon-btn notification-btn"
+            onclick="window.location.href = 'notifications.html'"
+          >
+            <i class="far fa-bell"></i>
+            <span
+              style="
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                width: 9px;
+                height: 9px;
+                background: #ef4444;
+                border-radius: 50%;
+                border: 2px solid white;
+              "
+            ></span>
+          </button>
+
+          <button class="icon-btn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="scroll-content">
+        <div class="search-section">
+          <div class="search-box">
+            <span class="material-symbols-rounded search-icon">search</span>
+            <input
+              type="text"
+              id="mainSearchInput"
+              class="search-input"
+              placeholder="אז... מה מחפשים היום?"
+            />
+            <button class="filter-btn" onclick="openDynamicFilter()">
+              <i class="fas fa-sliders-h"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="categories-section" id="categoriesRow">
+          <div
+            class="cat-item active"
+            data-cat="הכל"
+            onclick="toggleCategory(this, 'הכל')"
+          >
+            <div class="cat-circle active">
+              <div class="cat-content-box">
+                <span class="material-symbols-rounded" style="font-size: 30px"
+                  >apps</span
+                >
+              </div>
+            </div>
+            <span class="cat-label">הכל</span>
+          </div>
+        </div>
+
+        <div id="default-home-view">
+          <div class="section-title-area">
+            <h2 class="section-title" id="forYouTitle">בול בשבילך</h2>
+            <span class="view-all" onclick="showAllListings()" style="cursor:pointer">ראו הכל </span>
+          </div>
+          <div id="forYouTabs" class="for-you-tabs" style="display:none">
+            <button class="for-you-tab active" id="tabPersonalized" onclick="switchForYouTab('personalized')">בול בשבילך</button>
+            <button class="for-you-tab" id="tabPopular" onclick="switchForYouTab('popular')">🔥 פופלריים עכשיו</button>
+          </div>
+          <div class="horizontal-scroll" id="forYouList"></div>
+
+          <div class="section-title-area" style="margin-top: 25px">
+            <h2 class="section-title">מחירים שווים של הרגע האחרון</h2>
+            <span class="view-all" onclick="showLastMinuteAll()" style="cursor:pointer">ראו הכל </span>
+          </div>
+
+          <div class="vertical-list" id="lastMinuteList"></div>
+        </div>
+
+        <div id="filtered-results-view" style="display: none">
+          <div class="results-back-row">
+            <button class="back-to-home-btn" onclick="goBackToHome()">
+              <span class="material-symbols-rounded">arrow_forward_ios</span>
+              חזרה לדף הבית
+            </button>
+          </div>
+          <div class="section-title-area">
+            <h2 class="section-title" id="resultsTitle">תוצאות עבור: ...</h2>
+          </div>
+          <div class="vertical-list" id="dynamicResultsList"></div>
+        </div>
+
+        <div
+          id="no-results-view"
+          style="display: none; text-align: center; padding: 40px 20px"
+        >
+          <div style="margin-bottom: 20px">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png"
+              alt="No Results"
+              style="width: 120px; opacity: 0.8"
+            />
+          </div>
+          <h3
+            style="
+              font-size: 22px;
+              font-weight: 800;
+              color: var(--text-main);
+              margin-bottom: 10px;
+            "
+          >
+            אופס, לא מצאנו כרגע...
+          </h3>
+          <p
+            style="
+              color: var(--text-sub);
+              margin-bottom: 30px;
+              line-height: 1.5;
+            "
+          >
+            אבל היי, זה לא הסוף!<br />
+            רוצה שנעדכן אותך ראשון ברגע שמישהו יעלה כרטיס מתאים?
+          </p>
+
+          <button class="btn-smart-queue" onclick="registerSmartQueue()">
+            <i class="far fa-bell"></i> כן, תעדכנו אותי!
+          </button>
+        </div>
+
+        <div id="queueSuccessModal" class="queue-modal">
+          <div class="queue-modal-content">
+            <div class="success-checkmark">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3>מעולה! נרשמת לתור</h3>
+            <p>
+              ברגע שיעלה כרטיס מתאים, נשלח לך התראה אישית ותהיה בתור לרכישה.
+            </p>
+            <button onclick="closeQueueModal()">סגור</button>
+          </div>
+        </div>
+      </main>
+
+      <nav class="bottom-nav">
+        <button
+          class="nav-item active"
+          onclick="
+            activateNav(this);
+            window.location.href = 'home.html';
+          "
+        >
+          <span class="material-symbols-rounded nav-icon">home</span
+          ><span class="nav-label">בית</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="window.location.href = 'favorites.html'"
+        >
+          <span class="material-symbols-rounded nav-icon">favorite</span
+          ><span class="nav-label">מועדפים</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="window.location.href = 'newSell.html'"
+        >
+          <div class="inline-circle-btn">
+            <span class="material-symbols-rounded">add</span>
+          </div>
+          <span
+            class="nav-label"
+            style="font-weight: 700; color: var(--text-main)"
+            >מכירה</span
+          >
+        </button>
+        <button class="nav-item" onclick="window.location.href = 'search.html'">
+          <span class="material-symbols-rounded nav-icon">search</span
+          ><span class="nav-label">חיפוש</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="window.location.href = 'profile.html'"
+        >
+          <span class="material-symbols-rounded nav-icon">person</span
+          ><span class="nav-label">פרופיל</span>
+        </button>
+      </nav>
+
+      <div id="side-menu" class="side-menu">
+        <div class="menu-content">
+          <div class="menu-header">
+            <div class="menu-user-info">
+              <div class="menu-avatar-circle">
+                <i class="fas fa-user menu-avatar-icon" id="menuAvatarIcon"></i>
+                <img id="menuAvatarImg" class="menu-avatar-img" style="display:none" alt="" />
+              </div>
+              <div class="user-meta">
+                <h3 id="menuUserName">...</h3>
+                <a href="profile.html">מעבר לאזור אישי</a>
+              </div>
+            </div>
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+          </div>
+          <nav class="menu-nav">
+            <button class="nav-accordion" onclick="toggleAccordion()">
+              <span><i class="fas fa-th-large"></i> קטגוריות לסינון</span
+              ><i class="fas fa-chevron-down" id="accIcon"></i>
+            </button>
+            <div class="accordion-content" id="catAccordion"></div>
+            <div class="nav-group">
+              <a href="mySales.html" class="nav-link"
+                ><i class="fas fa-tags"></i> המכירות שלי</a
+              ><a href="myPurchases.html" class="nav-link"
+                ><i class="fas fa-shopping-bag"></i> הרכישות שלי</a
+              ><a href="chat.html" class="nav-link"
+                ><i class="fas fa-comments"></i> צ'אט</a
+              >
+            </div>
+            <div class="nav-group bottom-group">
+              <a href="#" class="nav-link"><i class="fas fa-cog"></i> הגדרות</a
+              ><a href="login.html" class="nav-link logout"
+                ><i class="fas fa-sign-out-alt"></i> התנתק</a
+              >
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+      <div class="modal-backdrop" id="filterModal" aria-hidden="true">
+        <div class="modal-sheet filter-sheet" role="dialog">
+          <div class="modal-header filter-header">
+            <h3 id="filterTitle">סינון מתקדם</h3>
+            <button class="modal-close" onclick="closeFilterModal()">✕</button>
+          </div>
+          <div class="modal-list filter-body" id="filterContent"></div>
+          <div class="filter-footer">
+            <button class="apply-btn" onclick="applyFilters()">
+              הצג תוצאות
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/homePage.js"></script>
+  </body>
+</html>
+
+
+

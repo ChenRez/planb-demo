@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - יצירת מכירה</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/newSellStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div class="close-btn" onclick="window.location.href = 'home.html'">
+        <span class="material-symbols-rounded">close</span>
+      </div>
+
+      <div class="scroll-content">
+        <h1 class="main-title" id="pageTitle">כמה פרטים והכרטיס שלך באוויר</h1>
+
+        <div class="progress-bar-wrapper">
+          <div class="progress-step active" id="bar1"></div>
+          <div class="progress-step" id="bar2"></div>
+          <div class="progress-step" id="bar3"></div>
+          <div class="progress-step" id="bar4"></div>
+        </div>
+
+        <p class="step-indicator" id="stepText">שלב 1 מתוך 4: פרטים כלליים</p>
+
+        <div id="step1" class="screen-step active">
+          <h3 class="section-title">מה אנחנו מוכרים היום?</h3>
+          <div class="categories-grid" id="categoriesGrid"></div>
+
+          <h3 class="section-title">כותרת האירוע / מוצר</h3>
+          <div class="input-group">
+            <input
+              type="text"
+              class="styled-input"
+              id="titleInput"
+              placeholder="לדוגמה: עידן עמדי בקיסריה"
+              oninput="updatePreview()"
+            />
+          </div>
+
+          <h3 class="section-title">כמות כרטיסים</h3>
+          <div class="input-group">
+            <input
+              type="number"
+              id="qtyInput"
+              class="styled-input"
+              placeholder="1"
+              value="1"
+              min="1"
+              style="text-align: center; font-size: 20px"
+              oninput="updatePreview()"
+            />
+          </div>
+
+          <h3 class="section-title">איך זה מגיע לקונה?</h3>
+          <div class="chips-container">
+            <div class="chip" onclick="selectOne(this)">קוד דיגיטלי</div>
+            <div class="chip" onclick="selectOne(this)">כרטיס פיזי</div>
+            <div class="chip" onclick="selectOne(this)">העברת בעלות</div>
+          </div>
+
+          <div class="nav-buttons">
+            <button
+              class="btn-secondary"
+              onclick="window.location.href = 'home.html'"
+            >
+              ביטול
+            </button>
+            <button class="btn-main" onclick="goToStep(2)">המשך לפרטים</button>
+          </div>
+        </div>
+
+        <div id="step2" class="screen-step">
+          <h3 class="section-title">פרטים נוספים</h3>
+
+          <div class="input-group">
+            <textarea
+              class="styled-textarea"
+              rows="2"
+              placeholder="כמה מילים על מה מוכרים ולמה נפרדים ממנו"
+            ></textarea>
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="styled-input"
+              id="locationInput"
+              placeholder="מיקום / כתובת"
+              oninput="updatePreview()"
+            />
+          </div>
+
+          <div
+            class="double-input-row"
+            id="dateTimeRow"
+            style="align-items: flex-start"
+          >
+            <div class="input-group" style="flex: 1.5">
+              <span class="section-header" style="margin-bottom: 5px"
+                >תאריך</span
+              >
+              <input
+                type="date"
+                class="styled-input"
+                id="dateInput"
+                onchange="updatePreview()"
+              />
+            </div>
+
+            <div class="input-group" style="flex: 1">
+              <span class="section-header" style="margin-bottom: 5px">שעה</span>
+              <div class="time-custom-wrapper">
+                <input
+                  type="number"
+                  class="time-part"
+                  placeholder="HH"
+                  min="0"
+                  max="23"
+                  oninput="limitTimeInput(this, 23)"
+                />
+                <span class="time-colon">:</span>
+                <input
+                  type="number"
+                  class="time-part"
+                  placeholder="MM"
+                  min="0"
+                  max="59"
+                  oninput="limitTimeInput(this, 59)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <h3 class="section-title">
+            נגישות במקום
+            <span class="material-symbols-rounded">accessible</span>
+          </h3>
+          <div class="chips-container">
+            <div class="chip" onclick="selectOne(this)">נגיש ✅</div>
+            <div class="chip" onclick="selectOne(this)">לא נגיש ❌</div>
+            <div class="chip" onclick="selectOne(this)">לא יודע 🤷‍♂️</div>
+          </div>
+
+          <div id="SEC_SPORT" class="dynamic-section">
+            <span class="section-header">פרטי המשחק</span>
+            <div class="double-input-row">
+              <input
+                type="text"
+                class="styled-input"
+                placeholder="קבוצה מארחת"
+              />
+              <input
+                type="text"
+                class="styled-input"
+                placeholder="קבוצה אורחת"
+              />
+            </div>
+            <div class="input-group" style="margin-top: 10px">
+              <input
+                type="text"
+                class="styled-input"
+                placeholder="שער / יציע / גוש"
+              />
+            </div>
+          </div>
+
+          <div id="SEC_SEATS" class="dynamic-section">
+            <span class="section-header">פרטי מושבים</span>
+            <div id="seatsContainer"></div>
+          </div>
+
+          <div id="SEC_TOURISM" class="dynamic-section">
+            <span class="section-header">סוג לינה</span>
+            <div class="chips-container">
+              <div class="chip" onclick="selectOne(this)">מלון</div>
+              <div class="chip" onclick="selectOne(this)">צימר</div>
+              <div class="chip" onclick="selectOne(this)">דירת אירוח</div>
+              <div class="chip" onclick="selectOne(this)">קמפינג</div>
+            </div>
+            <div class="double-input-row" style="margin-top:12px; align-items:flex-start;">
+              <div class="input-group" style="flex:1">
+                <span class="section-header" style="margin-bottom:5px;">כמות אנשים</span>
+                <input type="number" class="styled-input" placeholder="2" min="1" value="1" />
+              </div>
+              <div class="input-group" style="flex:1">
+                <span class="section-header" style="margin-bottom:5px;">תאריך עזיבה</span>
+                <input type="date" class="styled-input" />
+              </div>
+            </div>
+          </div>
+
+          <div id="SEC_ATTRACTIONS" class="dynamic-section">
+            <span class="section-header">למי זה מתאים?</span>
+            <div class="chips-container">
+              <div class="chip" onclick="toggleSelect(this)">כל המשפחה</div>
+              <div class="chip" onclick="toggleSelect(this)">ילדים</div>
+              <div class="chip" onclick="toggleSelect(this)">נוער</div>
+              <div class="chip" onclick="toggleSelect(this)">מבוגרים</div>
+            </div>
+          </div>
+
+          <div id="SEC_VOUCHERS" class="dynamic-section">
+            <span class="section-header">שם הרשת / המותג</span>
+            <input type="text" class="styled-input" placeholder="לדוגמה: זארה, סופר-פארם, פוקס..." style="margin-bottom:12px;" />
+            <span class="section-header">סוג מימוש</span>
+            <div class="chips-container">
+              <div class="chip" onclick="selectOne(this)">אונליין</div>
+              <div class="chip" onclick="selectOne(this)">פיזי בסניף</div>
+              <div class="chip" onclick="selectOne(this)">גם וגם</div>
+            </div>
+          </div>
+
+          <div id="SEC_FESTIVALS" class="dynamic-section">
+            <span class="section-header">סוג כרטיס</span>
+            <div class="chips-container">
+              <div class="chip" onclick="selectOne(this)">יומי</div>
+              <div class="chip" onclick="selectOne(this)">לכל הפסטיבל</div>
+              <div class="chip" onclick="selectOne(this)">סופ&quot;ש</div>
+            </div>
+          </div>
+
+          <div class="nav-buttons">
+            <button class="btn-secondary" onclick="goToStep(1)">חזור</button>
+            <button class="btn-main" onclick="goToStep(3)">המשך למדיה</button>
+          </div>
+        </div>
+
+        <div id="step3" class="screen-step">
+          <h3 class="section-title">תמונות ומסמכים</h3>
+
+          <div
+            class="upload-box gradient-text-box"
+            id="mainImageArea"
+            onclick="document.getElementById('realImgInput').click()"
+          >
+            <i class="fas fa-camera"></i>
+            <span style="display: block">לחצו להעלאת תמונה ראשית</span>
+            <span
+              style="
+                font-size: 12px;
+                font-weight: 400;
+                color: #999;
+                background: none;
+                -webkit-text-fill-color: #999;
+                margin-top: 5px;
+                display: block;
+              "
+              >זו התמונה שתוצג לקונים במודעה</span
+            >
+          </div>
+          <input
+            type="file"
+            id="realImgInput"
+            style="display: none"
+            accept="image/*"
+            onchange="handleMainImageUpload(this)"
+          />
+
+          <button
+            class="ai-search-btn"
+            type="button"
+            id="aiBtn"
+            onclick="findAIImage()"
+          >
+            <i class="fas fa-wand-magic-sparkles"></i>
+            הגזמתם, תמצאו אתם תמונה
+          </button>
+
+          <div
+            class="upload-box gradient-text-box"
+            style="margin-top: 20px"
+            id="ticketUploadBox"
+            onclick="document.getElementById('ticketFileInput').click()"
+          >
+            <i class="fas fa-file-pdf" id="ticketIcon"></i>
+            <span id="ticketText">העלאת הכרטיס/שובר המקורי (PDF/תמונה)</span>
+          </div>
+          <input
+            type="file"
+            id="ticketFileInput"
+            style="display: none"
+            onchange="handleTicketUpload(this)"
+          />
+
+          <div class="toggle-row">
+            <span class="toggle-label">נדרש שינוי שם בכרטיס?</span>
+            <label class="switch"
+              ><input type="checkbox" /><span class="slider"></span
+            ></label>
+          </div>
+
+          <div class="input-group">
+            <textarea
+              class="styled-textarea"
+              rows="3"
+              placeholder="הערות חשובות לקונה..."
+            ></textarea>
+          </div>
+
+          <div class="nav-buttons">
+            <button class="btn-secondary" onclick="goToStep(2)">חזור</button>
+            <button class="btn-main" onclick="goToStep(4)">המשך לתמחור</button>
+          </div>
+        </div>
+
+        <div id="step4" class="screen-step">
+          <div class="input-group">
+            <span class="section-header"> כמה עלה לך? (מחיר מקורי)</span>
+            <input
+              type="number"
+              class="styled-input"
+              placeholder="₪"
+              style="font-size: 20px; color: var(--primary-solid)"
+            />
+          </div>
+
+          <div class="input-group">
+            <span class="section-header">בכמה מוכרים?</span>
+            <input
+              type="number"
+              class="styled-input"
+              id="priceInput"
+              placeholder="₪"
+              style="font-size: 20px; color: var(--primary-solid)"
+              oninput="updatePreview()"
+            />
+            <span id="priceUnitLabel" style="font-size:12px; color:#909090; margin-top:6px; display:block; font-weight:600;"><i class="fas fa-info-circle" style="color:var(--primary-solid)"></i> המחיר הוא לכרטיס בודד</span>
+          </div>
+
+          <button
+            class="ai-search-btn"
+            type="button"
+            id="aiPriceBtn"
+            onclick="handleAIPricing()"
+            style="margin-top: 15px"
+          >
+            <i class="fas fa-robot"></i>
+            עזרו לי לתמחר חכם
+          </button>
+
+          <div id="aiResultArea" style="display: none; margin-bottom: 20px">
+            <div id="aiLoader" class="ai-loader-container">
+              <div class="spinner"></div>
+              <span
+                id="aiLoaderText"
+                style="
+                  font-size: 14px;
+                  color: var(--text-sub);
+                  margin-top: 10px;
+                  font-weight: 600;
+                "
+                >בודקים מחירים של פריטים דומים...</span
+              >
+            </div>
+
+            <div
+              id="aiRecommendation"
+              class="ai-recommendation-box"
+              style="display: none"
+            >
+              <div class="ai-header">
+                <i class="fas fa-magic"></i>
+                <span>ההמלצה שלנו למחיר</span>
+              </div>
+
+              <p class="ai-text" id="aiTextContent"></p>
+
+              <button class="apply-price-btn" onclick="applyAIPrice()">
+                השתמש במחיר זה
+              </button>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 25px">
+            לאן להעביר את התשלום?
+          </h3>
+
+          <div class="payment-methods-row">
+            <div
+              class="pay-method-container selected"
+              onclick="selectPaymentMethod(this)"
+            >
+              <div class="icon-wrapper">
+                <img src="pic/bit.png" alt="Bit" class="pay-app-img" />
+              </div>
+              <span class="pay-label">Bit</span>
+            </div>
+
+            <div
+              class="pay-method-container"
+              onclick="selectPaymentMethod(this)"
+            >
+              <div class="icon-wrapper">
+                <img src="pic/paybox.png" alt="PayBox" class="pay-app-img" />
+              </div>
+              <span class="pay-label">PayBox</span>
+            </div>
+
+            <div
+              class="pay-method-container"
+              onclick="selectPaymentMethod(this)"
+            >
+              <div class="icon-wrapper bank-wrapper">
+                <i class="fas fa-university bank-icon-styled"></i>
+              </div>
+              <span class="pay-label">לחשבון המוגדר</span>
+            </div>
+          </div>
+
+          <div
+            id="paymentPhoneContainer"
+            class="input-group"
+            style="margin-top: 10px"
+          >
+            <span class="section-header" id="payPhoneLabel"
+              >מספר הטלפון ל-Bit</span
+            >
+            <input
+              type="tel"
+              id="phoneInputField"
+              class="styled-input"
+              placeholder="05X-XXXXXXX"
+              style="direction: ltr; text-align: right"
+            />
+            <span style="font-size:11px; color:#909090; margin-top:5px; display:block;"><i class="fas fa-info-circle"></i> הטלפון מולא מהפרופיל שלך — <a href="profile.html" style="color:var(--primary-solid); font-weight:700;">לשינוי לחץ כאן</a></span>
+          </div>
+          <div id="bankSummaryContainer" class="input-group" style="margin-top: 10px; display: none;">
+            <span class="section-header">חשבון לקבלת תשלום</span>
+            <div id="bankInfo" style="background:#f0f2f5; padding:12px 16px; border-radius:14px; font-size:14px; font-weight:600; color:#2d3436; line-height:1.8;"></div>
+          </div>
+
+          <div
+            class="toggle-row"
+            style="align-items: flex-start; gap: 15px; margin-top: 25px"
+          >
+            <div style="flex: 1">
+              <span
+                class="toggle-label"
+                style="display: block; margin-bottom: 5px"
+                >הפעלת פיצול חכם (Split & Match)</span
+              >
+              <span
+                style="
+                  display: block;
+                  font-size: 12px;
+                  color: var(--text-sub);
+                  line-height: 1.4;
+                  font-weight: 400;
+                "
+              >
+                מגדיל את הסיכוי למכירה! תנו לנו לפצל את הכרטיסים בין כמה קונים.
+              </span>
+            </div>
+            <label class="switch" style="margin-top: 5px">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="preview-section-container">
+            <h3 class="section-title">סיכום פרסום (תצוגה מקדימה)</h3>
+            <div class="preview-card">
+              <div class="preview-img-wrap">
+                <div class="preview-badge">הופעות</div>
+                <img
+                  id="finalPreviewImg"
+                  src=""
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: none;
+                  "
+                />
+                <div
+                  id="placeholderPreview"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    background: #ddd;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #999;
+                  "
+                >
+                  תמונה
+                </div>
+              </div>
+              <div class="preview-content">
+                <div class="preview-row-top">
+                  <span class="preview-title" id="prevTitle"
+                    >כותרת המודעה שלך...</span
+                  >
+                  <i class="far fa-heart" style="color: #ccc"></i>
+                </div>
+                <div class="preview-row-info">
+                  <i
+                    class="fas fa-map-marker-alt"
+                    style="color: var(--accent-yellow); margin-left: 4px"
+                  ></i>
+                  <span id="prevLocation">מיקום</span>
+                </div>
+                <div class="preview-row-info">
+                  <i
+                    class="far fa-calendar-alt"
+                    style="color: var(--primary-solid); margin-left: 4px"
+                  ></i>
+                  <span id="prevDate">תאריך</span>
+                </div>
+                <div class="preview-footer">
+                  <div class="preview-price-group">
+                    <span style="font-size: 10px; color: #999">מחיר</span>
+                    <span class="preview-price-val" id="prevPrice">0₪</span>
+                  </div>
+                  <button class="preview-btn">לרכישה</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-buttons">
+            <button class="btn-secondary" onclick="goToStep(3)">חזור</button>
+            <button class="btn-main" onclick="finishSale()">פרסם מכירה!</button>
+          </div>
+        </div>
+
+        <div id="successScreen" class="screen-step success-container">
+          <div class="success-content-wrapper">
+            <div class="success-icon-wrap">
+              <i class="fas fa-check"></i>
+            </div>
+            <h1 class="main-title" style="font-size: 26px; margin-top: 20px">
+              פורסם בהצלחה!
+            </h1>
+            <p
+              style="
+                color: var(--text-sub);
+                text-align: center;
+                margin-bottom: 30px;
+              "
+            >
+              המכירה שלך באוויר ומחכה לקונה הראשון
+            </p>
+
+            <div class="success-card-summary">
+              <div class="sc-info">
+                <span class="sc-title" id="finalTitle"
+                  >עומר אדם בהיכל מנורה</span
+                >
+                <span class="sc-tag">פורסם ב-PlanB</span>
+              </div>
+              <div class="sc-price" id="finalPrice">400 ₪</div>
+            </div>
+
+            <div style="margin-bottom:14px;background:#fff9e6;border:1.5px dashed #f59e0b;border-radius:12px;padding:10px 14px;font-size:11px;color:#92400e;font-weight:700;text-align:center;">
+              ✦ תצוגת דמו בלבד — הפרסום לא נשמר בשרת אמיתי ✦
+            </div>
+            <button
+              class="btn-main btn-success-finish"
+              onclick="window.location.href = 'home.html'"
+            >
+              חזרה לדף הבית
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/newSellPage.js"></script>
+  </body>
+</html>
+

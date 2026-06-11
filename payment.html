@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - תשלום מאובטח</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/paymentStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div class="header-simple">
+        <div class="back-btn" onclick="window.history.back()">
+          <span class="material-symbols-rounded">arrow_forward</span>
+        </div>
+        <h1 class="page-title">תשלום מאובטח</h1>
+      </div>
+
+      <div class="scroll-content">
+        <div class="order-summary-card">
+          <h3 class="summary-title">סיכום הזמנה</h3>
+          <div class="summary-row">
+            <span id="payItemName">טוען פרטים...</span>
+            <span id="payItemPrice">0₪</span>
+          </div>
+          <div class="summary-row fee">
+            <span>עמלת שירות והגנה</span>
+            <span>5₪</span>
+          </div>
+          <div class="total-row">
+            <span>סה"כ לתשלום</span>
+            <span id="payTotal">0₪</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">איך תרצו לשלם?</h3>
+
+        <div class="payment-methods-row">
+          <div
+            class="pay-method-container"
+            onclick="selectPaymentMethod('bit', this)"
+          >
+            <div class="icon-wrapper">
+              <img src="pic/bit.png" alt="Bit" class="pay-app-img" />
+            </div>
+            <span class="pay-label">Bit</span>
+          </div>
+
+          <div
+            class="pay-method-container"
+            onclick="selectPaymentMethod('paybox', this)"
+          >
+            <div class="icon-wrapper">
+              <img src="pic/paybox.png" alt="PayBox" class="pay-app-img" />
+            </div>
+            <span class="pay-label">PayBox</span>
+          </div>
+
+          <div
+            class="pay-method-container selected"
+            onclick="selectPaymentMethod('card', this)"
+          >
+            <div class="icon-wrapper bank-wrapper">
+              <i class="far fa-credit-card bank-icon-styled"></i>
+            </div>
+            <span class="pay-label">אשראי</span>
+          </div>
+        </div>
+
+        <form
+          id="creditCardForm"
+          class="payment-form active-form"
+          onsubmit="event.preventDefault(); processPayment();"
+        >
+          <div class="input-group">
+            <label>מספר כרטיס</label>
+            <div class="input-icon-wrap">
+              <i class="far fa-credit-card"></i>
+              <input
+                type="tel"
+                placeholder="0000 0000 0000 0000"
+                maxlength="19"
+              />
+            </div>
+          </div>
+
+          <div class="row-inputs">
+            <div class="input-group">
+              <label>תוקף</label>
+              <input
+                type="tel"
+                placeholder="MM/YY"
+                maxlength="5"
+                style="text-align: center"
+              />
+            </div>
+            <div class="input-group">
+              <label>CVV</label>
+              <input
+                type="tel"
+                placeholder="123"
+                maxlength="3"
+                style="text-align: center"
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>ת.ז בעל הכרטיס</label>
+            <input type="tel" placeholder="תעודת זהות" />
+          </div>
+
+          <div class="trust-icons">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fas fa-lock"></i>
+            <span>SSL Secured</span>
+          </div>
+        </form>
+
+        <button
+          type="button"
+          class="pay-btn"
+          id="submitBtn"
+          onclick="processPayment()"
+        >
+          שלם באשראי
+        </button>
+      </div>
+
+      <div id="successOverlay" class="success-overlay">
+        <div class="success-card">
+          <div class="check-icon-anim">
+            <i class="fas fa-check"></i>
+          </div>
+          <h2>איזה כיף!</h2>
+          <p>
+            הרכישה בוצעה בהצלחה.<br />הכרטיסים נשלחו למייל שלך ומחכים לך גם
+            באזור האישי.
+          </p>
+          <button class="home-btn" onclick="window.location.href='home.html'">
+            חזרה לדף הבית
+          </button>
+          <div style="margin-top:14px;background:#fff9e6;border:1.5px dashed #f59e0b;border-radius:10px;padding:8px 12px;font-size:11px;color:#92400e;font-weight:700;text-align:center;">
+            ✦ תצוגת דמו — לא בוצע תשלום אמיתי ✦
+          </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/services/transactionService.js"></script>
+    <script src="js/pages/paymentPage.js"></script>
+  </body>
+</html>
+

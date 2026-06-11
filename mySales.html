@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>PlanB - המכירות שלי</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/mySalesStyle.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <div class="header-simple">
+        <div class="back-btn" onclick="window.location.href = 'home.html'">
+          <span class="material-symbols-rounded">arrow_forward</span>
+        </div>
+        <h1 class="page-title">המכירות שלי</h1>
+      </div>
+
+      <div class="scroll-content">
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-num">₪2,450</span>
+            <span class="stat-label">סך הכל הרווחת</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">5</span>
+            <span class="stat-label">מכירות מוצלחות</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">2</span>
+            <span class="stat-label">באוויר כרגע</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">היסטוריית פעילות</h3>
+
+        <div id="salesList" class="sales-list"></div>
+      </div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/pages/mySalesPage.js"></script>
+  </body>
+</html>
+
