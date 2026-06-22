@@ -36,8 +36,8 @@ function loadProductSuccess(item) {
   var dateStr = new Date(item.eventDate).toLocaleDateString('he-IL');
   var dateParts = dateStr.split(".");
   if (dateParts.length >= 2) {
-    document.getElementById("pDay").innerText = dateParts[0];
-    document.getElementById("pMonth").innerText = "." + dateParts[1];
+    document.getElementById("pDay").innerText = dateParts[1];
+    document.getElementById("pMonth").innerText = "." + dateParts[0];
   } else {
     document.getElementById("pDay").innerText = dateStr;
     document.getElementById("pMonth").innerText = "";
