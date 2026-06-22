@@ -51,6 +51,27 @@ function mediaUrl(path) {
     } catch (e) {}
 })();
 
+// באנר דמו עדין ודבוק למעלה — "תצוגה בלבד ללא חיבור לשרת". מוזרק בכל דף.
+(function demoBanner() {
+    function add() {
+        if (!document.body || document.getElementById("demoOnlyBanner")) return;
+        var b = document.createElement("div");
+        b.id = "demoOnlyBanner";
+        b.textContent = "תצוגת דמו בלבד · ללא חיבור לשרת";
+        b.style.cssText = [
+            "position:fixed", "top:0", "left:0", "right:0", "z-index:2147483647",
+            "background:rgba(220,38,38,0.92)", "color:#fff", "font-size:11px",
+            "font-weight:600", "text-align:center", "padding:3px 8px",
+            "letter-spacing:.2px", "line-height:1.4", "pointer-events:none",
+            "box-shadow:0 1px 4px rgba(0,0,0,.15)", "direction:rtl",
+            "font-family:inherit", "backdrop-filter:saturate(120%)"
+        ].join(";");
+        document.body.appendChild(b);
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", add);
+    else add();
+})();
+
 function requireAuth() {
     // בדמו תמיד מחוברים (משתמש דמו) — אין הפניה להתחברות.
     return true;
@@ -183,40 +204,40 @@ var DemoApi = (function () {
     var LISTINGS = [
         // ── 1. הופעות ──────────────────────────────────────
         L({ id: 1,  categoryId: 1, title: "נועה קירל - היכל מנורה מבטחים",     location: "תל אביב",     priceRequested: 280, priceOriginal: 350, days: 12, imagePath: "pic/noakirel.jpg", quantity: 2, sellerId: 13, transferType: "כרטיס דיגיטלי (העברת בעלות)", status: "Highlighted", notes: "2 כרטיסים צמודים, יציע ראשי שורה 7. העברה דרך האתר הרשמי.", seatingType: "מקומות ישיבה", sectorSeat: "בלוק 3 / שורה 7 / מושבים 12-13" }),
-        L({ id: 2,  categoryId: 1, title: "עומר אדם - פארק הירקון",            location: "תל אביב",     priceRequested: 320, priceOriginal: 400, days: 25, imagePath: PIC(2), quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי (קוד אישי)", notes: "4 כרטיסי קהל עומד, אזור גולדן ринг.", seatingType: "עמידה" }),
-        L({ id: 3,  categoryId: 1, title: "אייל גולן - אמפי ראשון לציון",       location: "ראשון לציון", priceRequested: 180, priceOriginal: 260, days: 8,  imagePath: PIC(3), quantity: 2, sellerId: 12, transferType: "כרטיס דיגיטלי (העברת בעלות)", status: "Price_Drop", notes: "נבצר ממני להגיע, מוכרת בהנחה. מושבים מעולים." }),
+        L({ id: 2,  categoryId: 1, title: "עומר אדם - פארק הירקון",            location: "תל אביב",     priceRequested: 320, priceOriginal: 400, days: 25, imagePath: "uploads/demo/stock/amfi.jpg", quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי (קוד אישי)", notes: "4 כרטיסי קהל עומד, אזור גולדן ринг.", seatingType: "עמידה" }),
+        L({ id: 3,  categoryId: 1, title: "אייל גולן - אמפי ראשון לציון",       location: "ראשון לציון", priceRequested: 180, priceOriginal: 260, days: 8,  imagePath: "uploads/demo/stock/zemer.jpg", quantity: 2, sellerId: 12, transferType: "כרטיס דיגיטלי (העברת בעלות)", status: "Price_Drop", notes: "נבצר ממני להגיע, מוכרת בהנחה. מושבים מעולים." }),
         // ── 2. ספורט ───────────────────────────────────────
-        L({ id: 4,  categoryId: 2, title: "מכבי ת\"א - הפועל ירושלים (כדורסל)", location: "תל אביב",     priceRequested: 150, priceOriginal: 200, days: 5,  imagePath: PIC(4), quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Highlighted", notes: "יורוליג! יציע מזרח, צמודים.", homeGroup: "מכבי תל אביב", awayGroup: "הפועל ירושלים", sectorSeat: "יציע מזרח / שער 5" }),
-        L({ id: 5,  categoryId: 2, title: "מכבי חיפה - בית\"ר ירושלים",         location: "חיפה",        priceRequested: 220, priceOriginal: 280, days: 18, imagePath: PIC(5), quantity: 3, sellerId: 14, transferType: "כרטיס דיגיטלי (קוד)", notes: "3 כרטיסים יחד, אצטדיון סמי עופר.", homeGroup: "מכבי חיפה", awayGroup: "בית\"ר ירושלים" }),
-        L({ id: 6,  categoryId: 2, title: "גמר גביע המדינה בכדורגל",            location: "תל אביב",     priceRequested: 300, priceOriginal: 300, days: 30, imagePath: PIC(6), quantity: 2, sellerId: 13, transferType: "כרטיס פיזי", notes: "אצטדיון בלומפילד, יציע VIP." }),
+        L({ id: 4,  categoryId: 2, title: "מכבי ת\"א - הפועל ירושלים (כדורסל)", location: "תל אביב",     priceRequested: 150, priceOriginal: 200, days: 5,  imagePath: "uploads/demo/stock/macabi.jpg", quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Highlighted", notes: "יורוליג! יציע מזרח, צמודים.", homeGroup: "מכבי תל אביב", awayGroup: "הפועל ירושלים", sectorSeat: "יציע מזרח / שער 5" }),
+        L({ id: 5,  categoryId: 2, title: "מכבי חיפה - בית\"ר ירושלים",         location: "חיפה",        priceRequested: 220, priceOriginal: 280, days: 18, imagePath: "uploads/demo/stock/sport_soccer.jpg", quantity: 3, sellerId: 14, transferType: "כרטיס דיגיטלי (קוד)", notes: "3 כרטיסים יחד, אצטדיון סמי עופר.", homeGroup: "מכבי חיפה", awayGroup: "בית\"ר ירושלים" }),
+        L({ id: 6,  categoryId: 2, title: "גמר גביע המדינה בכדורגל",            location: "תל אביב",     priceRequested: 300, priceOriginal: 300, days: 30, imagePath: "uploads/demo/stock/gmar.jpg", quantity: 2, sellerId: 13, transferType: "כרטיס פיזי", notes: "אצטדיון בלומפילד, יציע VIP." }),
         // ── 3. תיירות ──────────────────────────────────────
-        L({ id: 7,  categoryId: 3, title: "חבילת נופש באילת - 3 לילות",         location: "אילת",        priceRequested: 1200, priceOriginal: 1600, days: 40, imagePath: PIC(7), quantity: 2, sellerId: 11, transferType: "אישור הזמנה ע\"ש הקונה", notes: "מלון ישרוטל, חצי פנסיון, זוג. ניתן להעביר שם.", eventEndDays: 43 }),
-        L({ id: 8,  categoryId: 3, title: "סוף שבוע בצימר בגליל",               location: "ראש פינה",    priceRequested: 900,  priceOriginal: 1300, days: 15, imagePath: PIC(8), quantity: 2, sellerId: 16, transferType: "אישור הזמנה ע\"ש הקונה", notes: "צימר זוגי עם ג'קוזי, כולל ארוחת בוקר.", eventEndDays: 17 }),
-        L({ id: 9,  categoryId: 3, title: "טיול מאורגן ליוון - 5 ימים",         location: "יציאה מנתב\"ג", priceRequested: 2500, priceOriginal: 3000, days: 60, imagePath: PIC(9), quantity: 2, sellerId: 15, transferType: "העברת שם מול הסוכנות", notes: "טיסות + מלונות + מדריך. שני מקומות.", eventEndDays: 65 }),
+        L({ id: 7,  categoryId: 3, title: "חבילת נופש באילת - 3 לילות",         location: "אילת",        priceRequested: 1200, priceOriginal: 1600, days: 40, imagePath: "uploads/demo/stock/tour_eilat.jpg", quantity: 2, sellerId: 11, transferType: "אישור הזמנה ע\"ש הקונה", notes: "מלון ישרוטל, חצי פנסיון, זוג. ניתן להעביר שם.", eventEndDays: 43 }),
+        L({ id: 8,  categoryId: 3, title: "סוף שבוע בצימר בגליל",               location: "ראש פינה",    priceRequested: 900,  priceOriginal: 1300, days: 15, imagePath: "uploads/demo/stock/roshpina.jpg", quantity: 2, sellerId: 16, transferType: "אישור הזמנה ע\"ש הקונה", notes: "צימר זוגי עם ג'קוזי, כולל ארוחת בוקר.", eventEndDays: 17 }),
+        L({ id: 9,  categoryId: 3, title: "טיול מאורגן ליוון - 5 ימים",         location: "יציאה מנתב\"ג", priceRequested: 2500, priceOriginal: 3000, days: 60, imagePath: "uploads/demo/stock/boat.jpg", quantity: 2, sellerId: 15, transferType: "העברת שם מול הסוכנות", notes: "טיסות + מלונות + מדריך. שני מקומות.", eventEndDays: 65 }),
         // ── 4. שוברים ──────────────────────────────────────
-        L({ id: 10, categoryId: 4, title: "שובר ZARA בשווי 500₪",               location: "מימוש ארצי",  priceRequested: 350, priceOriginal: 500, days: 90,  imagePath: PIC(10), quantity: 1, sellerId: 12, transferType: "קוד שובר דיגיטלי", status: "Price_Drop", notes: "שובר דיגיטלי, מימוש בכל הסניפים ובאתר.", validUntilDays: 120 }),
-        L({ id: 11, categoryId: 4, title: "שובר זוגי לבורגר בביג",              location: "מימוש ארצי",  priceRequested: 90,  priceOriginal: 140, days: 45,  imagePath: PIC(11), quantity: 1, sellerId: 14, transferType: "קוד שובר דיגיטלי", notes: "ארוחה זוגית, כולל שתייה.", validUntilDays: 60 }),
-        L({ id: 12, categoryId: 4, title: "שובר ספא זוגי במלון",                location: "הרצליה",      priceRequested: 250, priceOriginal: 400, days: 30,  imagePath: PIC(12), quantity: 2, sellerId: 16, transferType: "קוד שובר דיגיטלי", notes: "יום פינוק זוגי, עיסוי + כניסה לבריכה.", validUntilDays: 75 }),
+        L({ id: 10, categoryId: 4, title: "שובר ZARA בשווי 500₪",               location: "מימוש ארצי",  priceRequested: 350, priceOriginal: 500, days: 90,  imagePath: "uploads/demo/stock/zara.png", quantity: 1, sellerId: 12, transferType: "קוד שובר דיגיטלי", status: "Price_Drop", notes: "שובר דיגיטלי, מימוש בכל הסניפים ובאתר.", validUntilDays: 120 }),
+        L({ id: 11, categoryId: 4, title: "שובר זוגי לבורגר בביג",              location: "מימוש ארצי",  priceRequested: 90,  priceOriginal: 140, days: 45,  imagePath: "uploads/demo/stock/vouch_restaurant.jpg", quantity: 1, sellerId: 14, transferType: "קוד שובר דיגיטלי", notes: "ארוחה זוגית, כולל שתייה.", validUntilDays: 60 }),
+        L({ id: 12, categoryId: 4, title: "שובר ספא זוגי במלון",                location: "הרצליה",      priceRequested: 250, priceOriginal: 400, days: 30,  imagePath: "uploads/demo/stock/vouch_spa.jpg", quantity: 2, sellerId: 16, transferType: "קוד שובר דיגיטלי", notes: "יום פינוק זוגי, עיסוי + כניסה לבריכה.", validUntilDays: 75 }),
         // ── 5. סטנדאפ ──────────────────────────────────────
-        L({ id: 13, categoryId: 5, title: "שחר חסון - זאפה הרצליה",             location: "הרצליה",      priceRequested: 120, priceOriginal: 150, days: 10, imagePath: PIC(13), quantity: 2, sellerId: 13, transferType: "כרטיס דיגיטלי", status: "Highlighted", notes: "שורה 3 מהבמה, מופע סולד אאוט.", seatingType: "מקומות ישיבה", sectorSeat: "שורה 3 / מושבים 5-6" }),
-        L({ id: 14, categoryId: 5, title: "יוחאי ספרבר - מועדון בארבי",         location: "תל אביב",     priceRequested: 100, priceOriginal: 130, days: 22, imagePath: PIC(14), quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי (קוד)", notes: "4 כרטיסים יחד, ישיבה ליד הבר." }),
-        L({ id: 15, categoryId: 5, title: "אדיר מילר - היכל התרבות",           location: "תל אביב",     priceRequested: 140, priceOriginal: 200, days: 6,  imagePath: PIC(15), quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "מופע חדש! מושבים מרכזיים." }),
+        L({ id: 13, categoryId: 5, title: "שחר חסון - זאפה הרצליה",             location: "הרצליה",      priceRequested: 120, priceOriginal: 150, days: 10, imagePath: "uploads/demo/stock/jazz.jpg", quantity: 2, sellerId: 13, transferType: "כרטיס דיגיטלי", status: "Highlighted", notes: "שורה 3 מהבמה, מופע סולד אאוט.", seatingType: "מקומות ישיבה", sectorSeat: "שורה 3 / מושבים 5-6" }),
+        L({ id: 14, categoryId: 5, title: "יוחאי ספרבר - מועדון בארבי",         location: "תל אביב",     priceRequested: 100, priceOriginal: 130, days: 22, imagePath: "uploads/demo/stock/rock.jpg", quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי (קוד)", notes: "4 כרטיסים יחד, ישיבה ליד הבר." }),
+        L({ id: 15, categoryId: 5, title: "אדיר מילר - היכל התרבות",           location: "תל אביב",     priceRequested: 140, priceOriginal: 200, days: 6,  imagePath: "uploads/demo/stock/thr_heichal.jpg", quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "מופע חדש! מושבים מרכזיים." }),
         // ── 6. אטרקציות ────────────────────────────────────
         L({ id: 16, categoryId: 6, title: "כרטיסים לסופרלנד",                   location: "ראשון לציון", priceRequested: 95,  priceOriginal: 140, days: 20, imagePath: "pic/superland.jpg", quantity: 4, sellerId: 16, transferType: "קוד כניסה דיגיטלי", notes: "4 כרטיסי כניסה לכל המתקנים.", validUntilDays: 60 }),
-        L({ id: 17, categoryId: 6, title: "כרטיס זוגי ללונה פארק",              location: "תל אביב",     priceRequested: 110, priceOriginal: 150, days: 30, imagePath: PIC(17), quantity: 2, sellerId: 12, transferType: "קוד כניסה דיגיטלי", notes: "כניסה זוגית כולל כל המתקנים.", validUntilDays: 70 }),
-        L({ id: 18, categoryId: 6, title: "פארק המים ימית 2000",               location: "חולון",       priceRequested: 120, priceOriginal: 160, days: 14, imagePath: PIC(18), quantity: 4, sellerId: 14, transferType: "קוד כניסה דיגיטלי", status: "Highlighted", notes: "כיף משפחתי, 4 כניסות.", validUntilDays: 45 }),
+        L({ id: 17, categoryId: 6, title: "כרטיס זוגי ללונה פארק",              location: "תל אביב",     priceRequested: 110, priceOriginal: 150, days: 30, imagePath: "uploads/demo/stock/attr_lunapark.jpg", quantity: 2, sellerId: 12, transferType: "קוד כניסה דיגיטלי", notes: "כניסה זוגית כולל כל המתקנים.", validUntilDays: 70 }),
+        L({ id: 18, categoryId: 6, title: "פארק המים ימית 2000",               location: "חולון",       priceRequested: 120, priceOriginal: 160, days: 14, imagePath: "uploads/demo/stock/attr_waterpark.jpg", quantity: 4, sellerId: 14, transferType: "קוד כניסה דיגיטלי", status: "Highlighted", notes: "כיף משפחתי, 4 כניסות.", validUntilDays: 45 }),
         // ── 7. הצגות ───────────────────────────────────────
-        L({ id: 19, categoryId: 7, title: "מלך האריות - האופרה ת\"א",           location: "תל אביב",     priceRequested: 250, priceOriginal: 320, days: 28, imagePath: PIC(19), quantity: 2, sellerId: 13, transferType: "כרטיס דיגיטלי", notes: "המחזמר הגדול! מושבים באמצע אולם.", seatingType: "מקומות ישיבה", sectorSeat: "אמצע אולם / שורה 11" }),
-        L({ id: 20, categoryId: 7, title: "פיטר פן - תיאטרון הבימה",           location: "תל אביב",     priceRequested: 90,  priceOriginal: 120, days: 9,  imagePath: PIC(20), quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי", notes: "הצגת ילדים, 4 כרטיסים יחד." }),
-        L({ id: 21, categoryId: 7, title: "בילי אליוט - המחזמר",                location: "תל אביב",     priceRequested: 200, priceOriginal: 300, days: 35, imagePath: PIC(21), quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "זוג מושבים מעולים, יציע ראשי." }),
+        L({ id: 19, categoryId: 7, title: "מלך האריות - האופרה ת\"א",           location: "תל אביב",     priceRequested: 250, priceOriginal: 320, days: 28, imagePath: "uploads/demo/stock/aladdin.jpg", quantity: 2, sellerId: 13, transferType: "כרטיס דיגיטלי", notes: "המחזמר הגדול! מושבים באמצע אולם.", seatingType: "מקומות ישיבה", sectorSeat: "אמצע אולם / שורה 11" }),
+        L({ id: 20, categoryId: 7, title: "פיטר פן - תיאטרון הבימה",           location: "תל אביב",     priceRequested: 90,  priceOriginal: 120, days: 9,  imagePath: "uploads/demo/stock/thr_habima.jpg", quantity: 4, sellerId: 11, transferType: "כרטיס דיגיטלי", notes: "הצגת ילדים, 4 כרטיסים יחד." }),
+        L({ id: 21, categoryId: 7, title: "בילי אליוט - המחזמר",                location: "תל אביב",     priceRequested: 200, priceOriginal: 300, days: 35, imagePath: "uploads/demo/stock/thr_gesher.jpg", quantity: 2, sellerId: 15, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "זוג מושבים מעולים, יציע ראשי." }),
         // ── 8. קולנוע ──────────────────────────────────────
-        L({ id: 22, categoryId: 8, title: "בכורת אווטאר 3 - סינמה סיטי",        location: "ירושלים",     priceRequested: 60,  priceOriginal: 80,  days: 4,  imagePath: PIC(22), quantity: 2, sellerId: 16, transferType: "כרטיס דיגיטלי (קוד)", status: "Highlighted", notes: "הקרנת בכורה IMAX, זוג כרטיסים." }),
-        L({ id: 23, categoryId: 8, title: "כרטיסיית פסטיבל קולנוע ירושלים",     location: "ירושלים",     priceRequested: 120, priceOriginal: 160, days: 16, imagePath: PIC(23), quantity: 2, sellerId: 14, transferType: "קוד דיגיטלי", notes: "כרטיסייה ל-4 סרטים." }),
-        L({ id: 24, categoryId: 8, title: "הקרנת ערב יחיד - יס פלאנט",          location: "ראשון לציון", priceRequested: 45,  priceOriginal: 70,  days: 7,  imagePath: PIC(24), quantity: 4, sellerId: 12, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "4 כרטיסים, אולם VIP." }),
+        L({ id: 22, categoryId: 8, title: "בכורת אווטאר 3 - סינמה סיטי",        location: "ירושלים",     priceRequested: 60,  priceOriginal: 80,  days: 4,  imagePath: "uploads/demo/stock/cin_cinemacity.jpg", quantity: 2, sellerId: 16, transferType: "כרטיס דיגיטלי (קוד)", status: "Highlighted", notes: "הקרנת בכורה IMAX, זוג כרטיסים." }),
+        L({ id: 23, categoryId: 8, title: "כרטיסיית פסטיבל קולנוע ירושלים",     location: "ירושלים",     priceRequested: 120, priceOriginal: 160, days: 16, imagePath: "uploads/demo/stock/fes_movies.jpg", quantity: 2, sellerId: 14, transferType: "קוד דיגיטלי", notes: "כרטיסייה ל-4 סרטים." }),
+        L({ id: 24, categoryId: 8, title: "הקרנת ערב יחיד - יס פלאנט",          location: "ראשון לציון", priceRequested: 45,  priceOriginal: 70,  days: 7,  imagePath: "uploads/demo/stock/cin_yesplanet.jpg", quantity: 4, sellerId: 12, transferType: "כרטיס דיגיטלי", status: "Price_Drop", notes: "4 כרטיסים, אולם VIP." }),
         // ── 9. פסטיבלים ────────────────────────────────────
         L({ id: 25, categoryId: 9, title: "אינדיגו פסטיבל",                     location: "פארק הירקון", priceRequested: 350, priceOriginal: 450, days: 50, imagePath: "pic/indigo festival.png", quantity: 2, sellerId: 15, transferType: "צמיד דיגיטלי / קוד", status: "Highlighted", notes: "כרטיס דו-יומי, כולל קמפינג.", eventEndDays: 52 }),
-        L({ id: 26, categoryId: 9, title: "פסטיבל הבירה ירושלים",              location: "ירושלים",     priceRequested: 80,  priceOriginal: 110, days: 21, imagePath: PIC(26), quantity: 4, sellerId: 11, transferType: "קוד כניסה דיגיטלי", notes: "4 כניסות, כולל כוס ראשונה.", eventEndDays: 23 }),
-        L({ id: 27, categoryId: 9, title: "פסטיבל מוזיקה - מימונה לייב",         location: "קיסריה",      priceRequested: 150, priceOriginal: 220, days: 33, imagePath: PIC(27), quantity: 2, sellerId: 13, transferType: "צמיד דיגיטלי / קוד", status: "Price_Drop", notes: "מופעים לאורך כל היום, זוג כרטיסים." })
+        L({ id: 26, categoryId: 9, title: "פסטיבל הבירה ירושלים",              location: "ירושלים",     priceRequested: 80,  priceOriginal: 110, days: 21, imagePath: "uploads/demo/stock/fes_beer.jpg", quantity: 4, sellerId: 11, transferType: "קוד כניסה דיגיטלי", notes: "4 כניסות, כולל כוס ראשונה.", eventEndDays: 23 }),
+        L({ id: 27, categoryId: 9, title: "פסטיבל מוזיקה - מימונה לייב",         location: "קיסריה",      priceRequested: 150, priceOriginal: 220, days: 33, imagePath: "uploads/demo/stock/redsea_jazz.jpg", quantity: 2, sellerId: 13, transferType: "צמיד דיגיטלי / קוד", status: "Price_Drop", notes: "מופעים לאורך כל היום, זוג כרטיסים." })
     ];
 
     var LISTING_BY_ID = {};
