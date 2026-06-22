@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanB - פרטי פרסום</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- 1. משתנים בסיסיים --- */
+      :root {
+        --brand-gradient: linear-gradient(
+          to right,
+          #ed5f65 0%,
+          #c53e5c 70%,
+          #b34467 100%
+        );
+        --primary-solid: #ff4757;
+        --accent-yellow: #ffd166;
+        --bg-app: #f7f7f9;
+        --bg-surface: #ffffff;
+        --text-main: #2d3436;
+        --text-sub: #909090;
+        --radius-l: 40px;
+        --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Open Sans", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background-color: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        direction: rtl;
+      }
+
+      .mobile-container {
+        width: 100%;
+        max-width: 448px;
+        height: 100vh;
+        max-height: 896px;
+        background-color: var(--bg-app);
+        border-radius: var(--radius-l);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      .header {
+        padding: 20px 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-surface);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      }
+      .header-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text-main);
+      }
+      .icon-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      .icon-btn:hover {
+        background-color: #f0f2f5;
+      }
+      .icon-btn i {
+        font-size: 20px;
+      }
+
+      .scroll-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        padding-bottom: 40px;
+      }
+      .scroll-content::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* --- 2. CSS ייחודי למסך פרטי פרסום (admin- prefix) --- */
+
+      /* תמונת באנר */
+      .admin-event-banner {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        box-shadow: var(--shadow-card);
+      }
+
+      /* כרטיס מידע ראשי */
+      .admin-info-card {
+        background: var(--bg-surface);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: var(--shadow-card);
+        margin-bottom: 20px;
+      }
+
+      .admin-event-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--text-main);
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+
+      .admin-event-meta {
+        font-size: 14px;
+        color: var(--text-sub);
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .admin-price-badge {
+        font-size: 18px;
+        font-weight: 900;
+        background: var(--brand-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* שורת מוכר */
+      .admin-seller-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 15px;
+        border-top: 1px solid #f0f0f0;
+        margin-top: 10px;
+      }
+      .admin-seller-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+      .admin-seller-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .admin-seller-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+      .admin-link-icon {
+        font-size: 12px;
+        color: var(--primary-solid);
+      }
+
+      /* באדג' סטטוס */
+      .admin-status-badge {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 12px;
+        display: inline-block;
+      }
+      .status-active {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+      .status-suspended {
+        background-color: #ffecd1;
+        color: #d35400;
+      }
+      .status-reported {
+        background-color: #fee2e2;
+        color: #b91c1c;
+      }
+
+      /* תיבת קובץ כרטיס */
+      .admin-file-box {
+        background: #f8f9fa;
+        border: 1px dashed #ced4da;
+        border-radius: 16px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column; /* שונה ל-column כדי להכיל כפתורים */
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+      .admin-file-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .admin-file-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .admin-file-icon {
+        font-size: 24px;
+        color: var(--primary-solid);
+      }
+      .admin-file-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+
+      .admin-btn-view {
+        background: white;
+        border: 1px solid #e0e0e0;
+        color: var(--text-main);
+        padding: 6px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .admin-btn-view:hover {
+        border-color: var(--primary-solid);
+        color: var(--primary-solid);
+      }
+
+      /* כפתור בקשת העלאה מחדש */
+      .admin-btn-reupload {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ff7675;
+        color: #ff7675;
+        padding: 8px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .admin-btn-reupload:hover {
+        background: #fff5f5;
+      }
+
+      /* כותרות סקשן */
+      .admin-section-header {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* עריכה מהירה */
+      .admin-form-group {
+        margin-bottom: 12px;
+      }
+      .admin-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 4px;
+        display: block;
+      }
+      .admin-input,
+      .admin-select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        background: #f0f2f5;
+        font-size: 14px;
+        color: var(--text-main);
+        outline: none;
+        font-family: inherit;
+      }
+      .admin-input:focus,
+      .admin-select:focus {
+        border-color: var(--primary-solid);
+        background: #fff;
+      }
+      .admin-helper-text {
+        font-size: 11px;
+        color: var(--text-sub);
+        margin-top: 3px;
+        display: block;
+      }
+      .admin-btn-save-sm {
+        background: var(--text-main);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 8px;
+        width: 100%;
+      }
+
+      /* רשימת דיווחים */
+      .admin-reports-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+      .admin-report-item {
+        background: #fff5f5;
+        border: 1px solid #fed7d7;
+        padding: 12px;
+        border-radius: 14px;
+      }
+      .admin-report-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #9b2c2c;
+        margin-bottom: 4px;
+        font-weight: 700;
+      }
+      .admin-report-reason {
+        font-size: 14px;
+        color: #c53030;
+        font-weight: 600;
+      }
+
+      /* כפתורי פעולה */
+      .admin-actions-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-bottom: 20px;
+      }
+      .admin-btn-action {
+        width: 100%;
+        padding: 14px;
+        border-radius: 16px;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+        text-decoration: none;
+      }
+      .btn-chat {
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+      .btn-suspend {
+        background: #ffecd1;
+        color: #d35400;
+      }
+      .btn-restore {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .btn-delete {
+        background: #fee2e2;
+        color: #b91c1c;
+        margin-top: 10px;
+      }
+
+      /* textarea לאודיט */
+      .admin-audit-textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        font-size: 13px;
+        background: #fff;
+        resize: none;
+        min-height: 60px;
+        font-family: inherit;
+        outline: none;
+      }
+
+      /* מודל */
+      .admin-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+      }
+      .admin-modal-card {
+        background: white;
+        width: 85%;
+        max-width: 320px;
+        padding: 25px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        animation: popUp 0.3s ease;
+      }
+      @keyframes popUp {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .admin-modal-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 10px;
+      }
+      .admin-modal-text {
+        font-size: 14px;
+        color: var(--text-sub);
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .admin-modal-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .admin-modal-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-cancel {
+        background: #f0f2f5;
+        color: var(--text-main);
+      }
+      .btn-confirm {
+        background: #ef4444;
+        color: white;
+      }
+      .btn-send {
+        background: #111;
+        color: white;
+      }
+
+      /* Toast Notification */
+      .admin-toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #2d3436;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        white-space: nowrap;
+      }
+      .admin-toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    </style>
+      <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+
+  <body>
+    <div class="mobile-container">
+      <header class="header">
+        <button
+          class="icon-btn"
+          onclick="window.location.href = 'admin-listings.html'"
+        >
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <div class="header-title">פרטי פרסום</div>
+        <div style="width: 40px"></div>
+      </header>
+
+      <main class="scroll-content">
+        <img
+          src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600"
+          alt="Banner"
+          class="admin-event-banner"
+        />
+
+        <div class="admin-info-card">
+          <h2 class="admin-event-title">פסטיבל התמר 2026</h2>
+          <div class="admin-event-meta">
+            <span><i class="fas fa-tag"></i> הופעות</span>
+            <span><i class="fas fa-ticket-alt"></i> 2 כרטיסים</span>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 15px;
+            "
+          >
+            <div class="admin-price-badge">₪450</div>
+            <div
+              id="listingStatusBadge"
+              class="admin-status-badge status-reported"
+            >
+              מדווח
+            </div>
+          </div>
+
+          <div class="admin-seller-row">
+            <a href="admin-user-details.html" class="admin-seller-info">
+              <img
+                src="../pic/avatar-default.svg"
+                alt="Seller"
+                class="admin-seller-avatar"
+              />
+              <div class="admin-seller-name">דניאל כהן</div>
+              <i class="fas fa-external-link-alt admin-link-icon"></i>
+            </a>
+            <span style="font-size: 12px; color: #999">מוכר אמין</span>
+          </div>
+        </div>
+
+        <h3 class="admin-section-header">
+          <span class="material-symbols-rounded" style="color: #a29bfe"
+            >edit</span
+          >
+          עריכה מהירה
+        </h3>
+        <div class="admin-info-card">
+          <div class="admin-form-group">
+            <label class="admin-label">קטגוריה</label>
+            <select class="admin-select" id="quickCategory">
+              <option value="shows" selected>הופעות</option>
+              <option value="sports">ספורט</option>
+              <option value="festivals">פסטיבלים</option>
+              <option value="culture">תרבות</option>
+              <option value="attractions">אטרקציות</option>
+              <option value="vacation">מלונות / נופש</option>
+            </select>
+            <span class="admin-helper-text"
+              >שינוי קטגוריה משפיע על חיפוש וחשיפה.</span
+            >
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">כותרת פרסום</label>
+            <input
+              type="text"
+              class="admin-input"
+              id="quickTitle"
+              value="פסטיבל התמר 2026"
+            />
+            <span class="admin-helper-text"
+              >לשימוש לתיקוני ניסוח/שגיאות כתיב בלבד.</span
+            >
+          </div>
+
+          <button class="admin-btn-save-sm" onclick="saveQuickEdit()">
+            שמירת שינויים
+          </button>
+        </div>
+
+        <h3 class="admin-section-header">
+          <span class="material-symbols-rounded" style="color: #74b9ff"
+            >upload_file</span
+          >
+          קובץ הכרטיס
+        </h3>
+        <div class="admin-file-box">
+          <div class="admin-file-top-row">
+            <div class="admin-file-info">
+              <span class="material-symbols-rounded admin-file-icon"
+                >picture_as_pdf</span
+              >
+              <div>
+                <div class="admin-file-text">tamar_fest_tix.pdf</div>
+                <div style="font-size: 11px; color: #2ecc71; font-weight: 600">
+                  הועלה בהצלחה
+                </div>
+              </div>
+            </div>
+            <button class="admin-btn-view" onclick="viewTicket()">צפייה</button>
+          </div>
+
+          <button class="admin-btn-reupload" onclick="openReuploadModal()">
+            <span class="material-symbols-rounded" style="font-size: 18px"
+              >sync_problem</span
+            >
+            בקש העלאה מחדש מהמוכר
+          </button>
+        </div>
+
+        <h3 class="admin-section-header">
+          <span class="material-symbols-rounded" style="color: #ef4444"
+            >report_problem</span
+          >
+          היסטוריית דיווחים (3)
+        </h3>
+        <div class="admin-reports-list">
+          <div class="admin-report-item">
+            <div class="admin-report-header">
+              <span>מאת: רונית ש.</span>
+              <span>15/01/2026</span>
+            </div>
+            <div class="admin-report-reason">מחיר גבוה ממחיר מקור</div>
+          </div>
+          <div class="admin-report-item">
+            <div class="admin-report-header">
+              <span>מאת: אלון ג.</span>
+              <span>14/01/2026</span>
+            </div>
+            <div class="admin-report-reason">
+              חשד להונאה - מבקש תשלום מחוץ לאפליקציה
+            </div>
+          </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0" />
+
+        <div class="admin-actions-container">
+          <div class="admin-form-group">
+            <label class="admin-label" style="color: #555"
+              >הערה פנימית (לצוות)</label
+            >
+            <textarea
+              class="admin-audit-textarea"
+              placeholder="למשל: נבדק מול המוכר, טוען שיש לו קבלה..."
+            ></textarea>
+            <span class="admin-helper-text"
+              >ההערה נשמרת לצרכי תיעוד פנימי.</span
+            >
+          </div>
+
+          <a href="admin-conversation.html" class="admin-btn-action btn-chat">
+            <span class="material-symbols-rounded">chat</span>
+            צ'אט עם המוכר
+          </a>
+
+          <button
+            id="suspendBtn"
+            class="admin-btn-action btn-suspend"
+            onclick="toggleSuspend()"
+          >
+            <span class="material-symbols-rounded">pause_circle</span>
+            <span>השעיית פרסום</span>
+          </button>
+
+          <button
+            class="admin-btn-action btn-delete"
+            onclick="openDeleteModal()"
+          >
+            <span class="material-symbols-rounded">delete</span>
+            מחיקת פרסום
+          </button>
+        </div>
+      </main>
+
+      <div id="deleteModal" class="admin-modal-backdrop">
+        <div class="admin-modal-card">
+          <div style="font-size: 40px; color: #ef4444; margin-bottom: 10px">
+            <i class="far fa-trash-alt"></i>
+          </div>
+          <div class="admin-modal-title">מחיקת פרסום</div>
+          <div class="admin-modal-text">
+            הפרסום יוסר לצמיתות ולא יהיה זמין לקנייה.<br />האם להמשיך?
+          </div>
+          <div class="admin-modal-btns">
+            <button
+              class="admin-modal-btn btn-cancel"
+              onclick="closeDeleteModal()"
+            >
+              ביטול
+            </button>
+            <button
+              class="admin-modal-btn btn-confirm"
+              onclick="confirmDelete()"
+            >
+              אישור מחיקה
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="reuploadModal" class="admin-modal-backdrop">
+        <div class="admin-modal-card">
+          <div style="font-size: 36px; color: #ff7675; margin-bottom: 10px">
+            <span class="material-symbols-rounded">upload_file</span>
+          </div>
+          <div class="admin-modal-title">בקשה להעלאה מחדש</div>
+          <div class="admin-modal-text">
+            לשלוח למוכר בקשה להעלות את הכרטיס מחדש?
+          </div>
+
+          <div
+            class="admin-form-group"
+            style="text-align: right; margin-bottom: 20px"
+          >
+            <label class="admin-label">סיבה לבקשה:</label>
+            <select class="admin-select" id="reuploadReason">
+              <option value="unreadable">קובץ לא נקרא</option>
+              <option value="format">פורמט לא נתמך</option>
+              <option value="missing">חסר מידע</option>
+              <option value="other">אחר</option>
+            </select>
+          </div>
+
+          <div class="admin-modal-btns">
+            <button
+              class="admin-modal-btn btn-cancel"
+              onclick="closeReuploadModal()"
+            >
+              ביטול
+            </button>
+            <button
+              class="admin-modal-btn btn-send"
+              onclick="sendReuploadRequest()"
+            >
+              שלח בקשה
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast" class="admin-toast">הודעה</div>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/services/apiService.js"></script>
+      <script src="../js/pages/adminListingDetailsPage.js"></script>
+  </body>
+</html>

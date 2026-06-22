@@ -1,0 +1,243 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   responsive.css — PlanB Responsive Design System
+   טעינה אחרי global.css וכל CSS ייחודי לדף — קובץ זה הוא האחרון בסדר הטעינה.
+
+   עיקרון: האפליקציה תמיד ממלאת את מסך המכשיר — ללא frame, ללא רקע נראה.
+     Mobile  : ≤479px  — מסך מלא + bottom nav קבוע + safe-area
+     Tablet  : 480–1023px — מסך מלא, nav שורה תחתית
+     Desktop : ≥1024px — מסך מלא, layout 2 עמודות (sidebar + תוכן)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BASE (≥480px): מסיר את ה-phone frame — תקף לטאבלט ולדסקטופ כאחד.
+   הגדרה כללית שמבוטלת/מועשרת על-ידי breakpoints ספציפיים למטה.
+   ───────────────────────────────────────────────────────────────────────── */
+@media screen and (min-width: 480px) {
+
+  body {
+    background: var(--bg-app, #f7f7f9) !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .mobile-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: none !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Bottom nav: normalize to flat full-width bar at very bottom */
+  .bottom-nav {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: 0 -1px 0 #ebebeb !important;
+  }
+
+  .scroll-content {
+    padding-bottom: 90px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   1. MOBILE (≤479px) — Full-screen native app
+      מסיר את ה-frame, ה-bottom-nav קבוע בתחתית (תמיכה ב-iOS safe area).
+   ───────────────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 479px) {
+
+  body {
+    background: var(--bg-app, #f7f7f9) !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .mobile-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: none !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Fixed bottom nav: נשאר גלוי גם בגלילה, תומך ב-iOS home indicator */
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    border-top: 1px solid #ebebeb !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.07) !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    z-index: 100 !important;
+  }
+
+  .scroll-content {
+    padding-bottom: 96px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   2. DESKTOP (≥1024px) — Two-column layout: sidebar + main content
+      App pages (with .bottom-nav): sidebar שמאל + תוכן ימין
+      Sub-pages / auth (without .bottom-nav): עמוד מלא ללא sidebar
+   ───────────────────────────────────────────────────────────────────────── */
+@media screen and (min-width: 1024px) {
+
+  /* ── APP PAGES — two-column grid filling the screen ─────────────────── */
+  .mobile-container:has(.bottom-nav) {
+    display: grid !important;
+    grid-template-columns: 240px 1fr !important;
+    grid-template-rows: auto 1fr !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    overflow: hidden !important;
+  }
+
+
+  /* ── SIDEBAR (repurposed .bottom-nav) — layout only, colors from original CSS ── */
+  .mobile-container:has(.bottom-nav) .bottom-nav {
+    /* Grid placement: full height of sidebar column */
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+
+    /* Remove mobile positioning */
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+
+    /* Fill sidebar cell */
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+
+    /* Layout only — background and colors kept from original page CSS */
+    border-radius: 0 !important;
+    border-top: none !important;
+    box-shadow: none !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.07) !important;
+
+    /* Vertical stacking */
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    padding: 20px 10px !important;
+    gap: 4px !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: auto !important;
+  }
+
+  /* Nav items: switch to row layout, keep original colors */
+  .mobile-container:has(.bottom-nav) .nav-item {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    gap: 12px !important;
+  }
+
+  /* Icons: remove bottom margin from column layout */
+  .mobile-container:has(.bottom-nav) .nav-icon {
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Labels: ensure visible in row layout */
+  .mobile-container:has(.bottom-nav) .nav-label {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  /* Plus button: remove bottom margin from column layout */
+  .mobile-container:has(.bottom-nav) .inline-circle-btn {
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* דפי sidebar: הסתרת כפתורי back/close ברמת-הדף (הניווט מטופל ע"י ה-sidebar).
+     שימוש ב-> כדי לא להסתיר את כפתור הסגירה המקונן בתוך תפריט ההמבורגר. */
+  .mobile-container:has(.bottom-nav) > .back-btn,
+  .mobile-container:has(.bottom-nav) > .close-btn {
+    display: none !important;
+  }
+
+
+  /* ── HEADER / TOP-BAR (col 2, row 1) ───────────────────────────────── */
+  .mobile-container:has(.bottom-nav) .header,
+  .mobile-container:has(.bottom-nav) .top-bar,
+  .mobile-container:has(.bottom-nav) .app-topbar {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 20 !important;
+    border-radius: 0 !important;
+  }
+
+
+  /* ── MAIN SCROLL CONTENT (col 2, row 2) ────────────────────────────── */
+  .mobile-container:has(.bottom-nav) .scroll-content {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 40px !important;
+    height: 100% !important;
+    /* Constrain content width for readability on wide screens */
+    max-width: 960px !important;
+    margin-inline: auto !important;
+    padding-inline: 24px !important;
+  }
+
+
+  /* ── SUB-PAGES (no bottom-nav): center content in a comfortable column ──
+     שומר על רקע מסך מלא, אך מונע מהתיבות/הטופס להימרח מקצה לקצה.
+     ללא "קלף"/ריבוע — רק עמודה מרוכזת וקריאה. */
+  .mobile-container:not(:has(.bottom-nav)) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* כל ילד ישיר מוגבל ל-480px ומרוכז — פרט לכפתורי סגירה absolute (גודל קבוע) */
+  .mobile-container:not(:has(.bottom-nav)) > *:not(.close-btn):not(.back-btn) {
+    width: 100% !important;
+    max-width: 480px !important;
+    flex-shrink: 0 !important;
+  }
+
+
+  /* ── FILTER MODAL: covers only the main column ──────────────────────── */
+  .mobile-container:has(.bottom-nav) .modal-backdrop {
+    left: 240px !important;
+    width: calc(100% - 240px) !important;
+    border-radius: 0 !important;
+  }
+
+  /* ── SIDE MENU OVERLAY: covers only the main column ────────────────── */
+  .mobile-container:has(.bottom-nav) .menu-overlay {
+    left: 240px !important;
+    width: calc(100% - 240px) !important;
+  }
+}

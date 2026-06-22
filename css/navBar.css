@@ -1,0 +1,93 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   navBar.css — מראה הבסיס של סרגל הניווט המשותף (navBar.js)
+   נטען בדפים שמזריקים את הניווט דרך הרכיב המשותף (profile, notifications, ...).
+   המיקום (bottom-bar במובייל / sidebar בדסקטופ) מטופל כולו ב-responsive.css.
+   הדפים home/search/favorites כבר מגדירים את הסגנונות האלה בעצמם — לכן אין
+   לכלול קובץ זה בהם (כדי למנוע כפילות).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- Bottom Nav --- */
+.bottom-nav {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: var(--bg-surface, #ffffff);
+  border-radius: 20px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 30;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  position: relative;
+  padding: 0;
+}
+
+.nav-icon {
+  font-size: 37px !important;
+  color: #b2bec3;
+  transition: 0.3s;
+  margin-bottom: 2px;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #b2bec3;
+  transition: 0.3s;
+}
+
+.nav-item.active .nav-icon {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-variation-settings: "FILL" 1;
+}
+.nav-item.active .nav-label {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.inline-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(197, 62, 92, 0.4);
+  margin-bottom: 2px;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+.inline-circle-btn:active {
+  transform: scale(0.95);
+}
+
+.nav-item:hover .inline-circle-btn {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(197, 62, 92, 0.5);
+}
+
+.inline-circle-btn .material-symbols-rounded {
+  color: white;
+  font-size: 28px;
+}

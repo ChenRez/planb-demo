@@ -1,0 +1,724 @@
+﻿<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanB - מבנה דף הבית</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- 1. משתנים בסיסיים (זהה לשאר המערכת) --- */
+      :root {
+        --brand-gradient: linear-gradient(
+          to right,
+          #ed5f65 0%,
+          #c53e5c 70%,
+          #b34467 100%
+        );
+        --primary-solid: #ff4757;
+        --accent-yellow: #ffd166;
+        --bg-app: #f7f7f9;
+        --bg-surface: #ffffff;
+        --text-main: #2d3436;
+        --text-sub: #909090;
+        --radius-l: 40px;
+        --radius-m: 24px;
+        --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Open Sans", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background-color: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        direction: rtl;
+      }
+
+      .mobile-container {
+        width: 100%;
+        max-width: 448px;
+        height: 100vh;
+        max-height: 896px;
+        background-color: var(--bg-app);
+        border-radius: var(--radius-l);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      .header {
+        padding: 20px 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-surface);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      }
+      .header-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text-main);
+      }
+      .icon-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      .icon-btn:hover {
+        background-color: #f0f2f5;
+      }
+      .icon-btn i {
+        font-size: 20px;
+      }
+
+      .scroll-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        padding-bottom: 90px; /* מקום לכפתור הוספה */
+      }
+      .scroll-content::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* --- 2. CSS ייחודי למסך ניהול מבנה דף הבית (admin- prefix) --- */
+
+      /* כרטיס הסבר */
+      .admin-info-card {
+        background: #e3f2fd;
+        border: 1px solid #90caf9;
+        border-radius: 16px;
+        padding: 15px;
+        color: #1565c0;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .admin-info-icon {
+        font-size: 20px;
+        margin-top: 2px;
+      }
+
+      /* תצוגה מקדימה טקסטואלית */
+      .admin-preview-box {
+        background: #2d3436;
+        color: #dfe6e9;
+        border-radius: 16px;
+        padding: 15px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .admin-preview-header {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #b2bec3;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .admin-preview-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .admin-preview-item {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .admin-preview-item::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--brand-gradient);
+        border-radius: 50%;
+      }
+
+      /* רשימת האזורים */
+      .admin-sections-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .admin-section-card {
+        background: var(--bg-surface);
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: var(--shadow-card);
+        border: 1px solid transparent;
+        transition: 0.2s;
+      }
+      .admin-section-card:hover {
+        border-color: rgba(0, 0, 0, 0.05);
+      }
+      /* מצב כבוי */
+      .admin-section-card.disabled-mode {
+        opacity: 0.6;
+        background: #f9f9f9;
+        border: 1px dashed #ccc;
+      }
+
+      /* כותרת הכרטיס */
+      .admin-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .admin-card-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .admin-drag-handle {
+        color: #b2bec3;
+        cursor: grab;
+      }
+      .admin-card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+      .admin-status-badge {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: 700;
+      }
+      .status-on {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .status-off {
+        background: #f0f2f5;
+        color: #636e72;
+      }
+
+      /* פעולות בכרטיס */
+      .admin-card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 10px;
+      }
+
+      .admin-sort-btns {
+        display: flex;
+        gap: 5px;
+      }
+      .admin-sort-btn {
+        width: 32px;
+        height: 32px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-sub);
+        transition: 0.2s;
+      }
+      .admin-sort-btn:hover {
+        background: #f0f2f5;
+        color: var(--text-main);
+      }
+
+      .admin-action-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .admin-btn-edit {
+        background: none;
+        border: none;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary-solid);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* Toggle Switch */
+      .switch {
+        position: relative;
+        width: 40px;
+        height: 22px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: var(--primary-solid);
+      }
+      input:checked + .slider:before {
+        transform: translateX(18px);
+      }
+
+      /* כפתור הוספה ראשי */
+      .admin-btn-add-main {
+        width: 100%;
+        background: var(--brand-gradient);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 18px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(237, 95, 101, 0.3);
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .admin-btn-add-main:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Modals */
+      .admin-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+      }
+      .admin-modal-card {
+        background: white;
+        width: 85%;
+        max-width: 320px;
+        padding: 25px;
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        animation: popUp 0.3s ease;
+      }
+      @keyframes popUp {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .admin-modal-title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: var(--text-main);
+      }
+
+      .admin-form-group {
+        margin-bottom: 15px;
+      }
+      .admin-label {
+        font-size: 13px;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .admin-input,
+      .admin-select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        background: #f0f2f5;
+        font-size: 14px;
+        outline: none;
+      }
+      .admin-input:focus,
+      .admin-select:focus {
+        background: white;
+        border-color: var(--primary-solid);
+      }
+
+      .admin-stepper {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .admin-step-btn {
+        width: 30px;
+        height: 30px;
+        background: #e0e0e0;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .admin-step-val {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .admin-modal-btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .admin-modal-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-cancel {
+        background: #f0f2f5;
+        color: var(--text-main);
+      }
+      .btn-save {
+        background: var(--text-main);
+        color: white;
+      }
+
+      /* Toast */
+      .admin-toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #2d3436;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        white-space: nowrap;
+      }
+      .admin-toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    </style>
+      <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+
+  <body>
+    <div class="mobile-container">
+      <header class="header">
+        <button
+          class="icon-btn"
+          onclick="window.location.href = 'admin-dashboard.html'"
+        >
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <div class="header-title">מבנה דף הבית</div>
+        <div style="width: 40px"></div>
+      </header>
+
+      <main class="scroll-content">
+        <div class="admin-info-card">
+          <span class="material-symbols-rounded admin-info-icon"
+            >view_quilt</span
+          >
+          <span
+            >כאן ניתן לשלוט באילו אזורים יוצגו בדף הבית, סוג התוכן שלהם והסדר בו
+            יופיעו למשתמש.</span
+          >
+        </div>
+
+        <div class="admin-preview-box">
+          <div class="admin-preview-header">תצוגה מקדימה (סדר נוכחי)</div>
+          <div class="admin-preview-list" id="previewList">
+            <div class="admin-preview-item">חיפוש וקטגוריות</div>
+            <div class="admin-preview-item">אירועים קרובים</div>
+            <div class="admin-preview-item">מומלץ עבורך</div>
+            <div class="admin-preview-item">פופולרי עכשיו</div>
+          </div>
+        </div>
+
+        <div class="admin-sections-list" id="sectionsList">
+          <div class="admin-section-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title-wrap">
+                <span class="material-symbols-rounded admin-drag-handle"
+                  >drag_indicator</span
+                >
+                <span class="admin-card-title">חיפוש וקטגוריות</span>
+              </div>
+              <div class="admin-status-badge status-on">פעיל</div>
+            </div>
+            <div class="admin-card-actions">
+              <div class="admin-sort-btns">
+                <button class="admin-sort-btn" onclick="moveUp(this)">
+                  <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="admin-sort-btn" onclick="moveDown(this)">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="admin-action-right">
+                <button
+                  class="admin-btn-edit"
+                  onclick="openEditModal('חיפוש וקטגוריות', 'categories')"
+                >
+                  <i class="fas fa-pencil-alt"></i> עריכה
+                </button>
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked
+                    onchange="toggleSection(this)"
+                  />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-section-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title-wrap">
+                <span class="material-symbols-rounded admin-drag-handle"
+                  >drag_indicator</span
+                >
+                <span class="admin-card-title">אירועים קרובים</span>
+              </div>
+              <div class="admin-status-badge status-on">פעיל</div>
+            </div>
+            <div class="admin-card-actions">
+              <div class="admin-sort-btns">
+                <button class="admin-sort-btn" onclick="moveUp(this)">
+                  <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="admin-sort-btn" onclick="moveDown(this)">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="admin-action-right">
+                <button
+                  class="admin-btn-edit"
+                  onclick="openEditModal('אירועים קרובים', 'cards')"
+                >
+                  <i class="fas fa-pencil-alt"></i> עריכה
+                </button>
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked
+                    onchange="toggleSection(this)"
+                  />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-section-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title-wrap">
+                <span class="material-symbols-rounded admin-drag-handle"
+                  >drag_indicator</span
+                >
+                <span class="admin-card-title">מומלץ עבורך</span>
+              </div>
+              <div class="admin-status-badge status-on">פעיל</div>
+            </div>
+            <div class="admin-card-actions">
+              <div class="admin-sort-btns">
+                <button class="admin-sort-btn" onclick="moveUp(this)">
+                  <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="admin-sort-btn" onclick="moveDown(this)">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="admin-action-right">
+                <button
+                  class="admin-btn-edit"
+                  onclick="openEditModal('מומלץ עבורך', 'custom')"
+                >
+                  <i class="fas fa-pencil-alt"></i> עריכה
+                </button>
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked
+                    onchange="toggleSection(this)"
+                  />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-section-card disabled-mode">
+            <div class="admin-card-header">
+              <div class="admin-card-title-wrap">
+                <span class="material-symbols-rounded admin-drag-handle"
+                  >drag_indicator</span
+                >
+                <span class="admin-card-title">פופולרי עכשיו</span>
+              </div>
+              <div class="admin-status-badge status-off">כבוי</div>
+            </div>
+            <div class="admin-card-actions">
+              <div class="admin-sort-btns">
+                <button class="admin-sort-btn" onclick="moveUp(this)">
+                  <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="admin-sort-btn" onclick="moveDown(this)">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="admin-action-right">
+                <button
+                  class="admin-btn-edit"
+                  onclick="openEditModal('פופולרי עכשיו', 'cards')"
+                >
+                  <i class="fas fa-pencil-alt"></i> עריכה
+                </button>
+                <label class="switch">
+                  <input type="checkbox" onchange="toggleSection(this)" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="admin-btn-add-main" onclick="openAddModal()">
+          <i class="fas fa-plus"></i> הוספת אזור חדש
+        </button>
+      </main>
+
+      <div id="layoutModal" class="admin-modal-backdrop">
+        <div class="admin-modal-card">
+          <div class="admin-modal-title" id="modalTitle">עריכת אזור</div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">שם האזור</label>
+            <input type="text" class="admin-input" id="sectionNameInput" />
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">סוג תצוגה</label>
+            <select class="admin-select" id="sectionTypeSelect">
+              <option value="categories">רשימת קטגוריות</option>
+              <option value="cards">כרטיסי פרסומים (Horizontal Scroll)</option>
+              <option value="grid">גריד (Vertical)</option>
+              <option value="custom">מותאם אישית (AI)</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">מקור תוכן</label>
+            <select class="admin-select">
+              <option value="algo">אלגוריתם חכם</option>
+              <option value="manual">בחירה ידנית</option>
+              <option value="prefs">לפי העדפות משתמש</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">מספר פריטים להצגה</label>
+            <div class="admin-stepper">
+              <button class="admin-step-btn" onclick="step(-1)">-</button>
+              <span class="admin-step-val" id="stepVal">5</span>
+              <button class="admin-step-btn" onclick="step(1)">+</button>
+            </div>
+          </div>
+
+          <div class="admin-modal-btns">
+            <button class="admin-modal-btn btn-cancel" onclick="closeModal()">
+              ביטול
+            </button>
+            <button class="admin-modal-btn btn-save" onclick="saveSection()">
+              שמירה
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast" class="admin-toast">הודעה</div>
+    </div>
+      <script src="../js/pages/adminHomeLayoutPage.js"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/services/apiService.js"></script>
+  </body>
+</html>

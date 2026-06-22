@@ -1,0 +1,242 @@
+:root {
+  /* הגדרת הצבעים */
+  --fuchsia: #d62962;
+  --mulberry: #f44476;
+  --orange: #e59941;
+  --cream: #fdfbf7;
+  --dark-plum: #4a152c;
+
+  /* הגדרת רקע המסך הספציפי לאופציה הזו */
+  --bg-gradient: radial-gradient(circle, #d62962 0%, #782435 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.mobile-container {
+  width: 100%;
+  max-width: 448px;
+  height: 100vh;
+  max-height: 896px;
+
+  /* שימוש במשתנה הרקע */
+  background: var(--bg-gradient);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(229, 153, 65, 0.3);
+  border-radius: 40px;
+  padding: 30px 20px 60px 20px;
+  display: flex;
+}
+
+.mobile-container::-webkit-scrollbar {
+  display: none;
+}
+
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: auto 0;
+}
+
+.login-logo {
+  width: 220px;
+  height: auto;
+  margin-bottom: 5px;
+  display: block;
+}
+.slogan-text {
+  color: rgba(255, 255, 255, 0.9); /* לבן עם שקיפות עדינה */
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 35px; /* דוחף את הכותרת "יאללה בואו נתחיל" למטה */
+  letter-spacing: 0.5px; /* רווח קטן בין האותיות לאווירה יוקרתית */
+  font-weight: 600px;
+}
+
+.welcome-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-input input {
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: right;
+  direction: rtl;
+  font-weight: 600;
+}
+
+.glass-input input::placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.eye-icon {
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.forgot-container {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 14px;
+}
+.forgot-text {
+  color: #ffd700;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* --- תיקון הכפתור --- */
+.login-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 15px;
+  border: none;
+  background-color: #ffffff; /* כפתור לבן */
+  color: var(--fuchsia); /* טקסט ורוד חזק */
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(214, 41, 98, 0.2);
+  transition: transform 0.2s;
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+.divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.divider-text {
+  color: white;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.social-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.social-btn {
+  width: 55px;
+  height: 55px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.social-btn.google i {
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-btn.facebook {
+  color: #1877f2;
+}
+
+.footer-links {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.no-account {
+  color: white;
+  font-size: 15px;
+}
+
+.signup-link {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.guest-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.guest-link {
+  color: #ffd700;
+  font-weight: 600;
+}

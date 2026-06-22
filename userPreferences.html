@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanB - העדפות</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/userPreferencesStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+      <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+  <body>
+    <div class="mobile-container">
+      <div class="close-btn-wrapper">
+        <div class="close-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+
+      <h1 class="page-title">מה ה-Vibe שלך?</h1>
+
+      <p class="page-subtitle">
+        תנו לנו כיוון של מה שאתם אוהבים, ואנחנו נדאג שכל מה שתראו יהיה בול הטעם
+        שלכם
+        <svg
+          class="pref-svg-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          width="24"
+          height="24"
+          style="vertical-align: middle; margin-right: 5px"
+        >
+          <g
+            fill="none"
+            stroke="#c53e5c"
+            stroke-width="35"
+            stroke-linecap="round"
+          >
+            <circle cx="256" cy="256" r="180" opacity="0.4" />
+            <circle cx="256" cy="256" r="110" />
+            <circle cx="256" cy="256" r="35" fill="#c53e5c" stroke="none" />
+          </g>
+          <path
+            d="M450 60 L350 160 L380 60 L350 30 Z"
+            fill="#c53e5c"
+            transform="translate(-20, 20)"
+          />
+          <line
+            x1="360"
+            y1="70"
+            x2="256"
+            y2="256"
+            stroke="#c53e5c"
+            stroke-width="40"
+            stroke-linecap="round"
+          />
+        </svg>
+      </p>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">
+          <i class="fas fa-heart"></i> מה עושה לך את זה?
+        </h2>
+        <div class="chips-container" id="interestChips">
+          <button type="button" class="chip" data-value="הכל">הכל</button>
+        </div>
+      </section>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">
+          <i class="fas fa-map-marker-alt"></i> איפה לחפש לך?
+        </h2>
+        <div class="chips-container" id="areaChips">
+          <button type="button" class="chip" data-value="בכל הארץ">
+            בכל הארץ
+          </button>
+          <button type="button" class="chip" data-value="מרכז">מרכז</button>
+          <button type="button" class="chip" data-value="צפון">צפון</button>
+          <button type="button" class="chip" data-value="דרום">דרום</button>
+          <button type="button" class="chip" data-value="ירושלים">
+            ירושלים
+          </button>
+          <button type="button" class="chip" data-value="שפלה">שפלה</button>
+        </div>
+      </section>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">
+          <i class="fas fa-wallet"></i> על איזה תקציב אנחנו מדברים?
+        </h2>
+        <div class="budget-display">
+          <div class="budget-display-item">
+            <span class="budget-label">Min</span>
+            <div class="budget-value"><span class="budget-currency">₪</span><input type="number" id="displayMin" class="budget-input" value="0" min="0" max="30000" step="50" /></div>
+          </div>
+          <span class="budget-display-dash">—</span>
+          <div class="budget-display-item">
+            <span class="budget-label">Max</span>
+            <div class="budget-value"><span class="budget-currency">₪</span><input type="number" id="displayMax" class="budget-input" value="30000" min="0" max="30000" step="50" /></div>
+          </div>
+        </div>
+        <div class="budget-range-wrapper">
+          <div class="budget-slider-container">
+            <div class="budget-slider-track" id="sliderTrack"></div>
+            <input type="range" min="0" max="30000" step="50" value="0" id="slider-1" oninput="slideOne()" />
+            <input type="range" min="0" max="30000" step="50" value="30000" id="slider-2" oninput="slideTwo()" />
+          </div>
+          <div class="budget-range-labels">
+            <span>₪0</span>
+            <span>₪30,000</span>
+          </div>
+        </div>
+        <input type="hidden" id="input-min" value="0" />
+        <input type="hidden" id="input-max" value="30000" />
+      </section>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">
+          <i class="fas fa-wheelchair"></i> הגדרות נגישות
+        </h2>
+        <div class="toggles-list">
+          <label class="toggle-row">
+            <span>נגישות לכיסא גלגלים</span>
+            <div class="toggle-switch">
+              <input type="checkbox" />
+              <span class="slider"></span>
+            </div>
+          </label>
+          <label class="toggle-row">
+            <span>מערכות שמע לכבדי שמיעה</span>
+            <div class="toggle-switch">
+              <input type="checkbox" />
+              <span class="slider"></span>
+            </div>
+          </label>
+          <label class="toggle-row">
+            <span>פטור מתור (הצגת תעודה)</span>
+            <div class="toggle-switch">
+              <input type="checkbox" />
+              <span class="slider"></span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">
+          <i class="fas fa-bell"></i> על מה לעדכן אותך?
+        </h2>
+
+        <div class="notification-item">
+          <div class="notify-text">
+            <span class="notify-head"
+              >דילים של הרגע האחרון
+              <i class="fas fa-fire" style="color: #ff9f43"></i
+            ></span>
+            <span class="notify-desc"
+              >כרטיסים מוזלים שמתפנים מעכשיו לעכשיו</span
+            >
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="notification-item" style="margin-top: 10px">
+          <div class="notify-text">
+            <span class="notify-head"
+              >המלצות שבועיות
+              <i
+                class="fas fa-calendar-check"
+                style="color: var(--primary-solid)"
+              ></i
+            ></span>
+            <span class="notify-desc">סיכום שבועי של אירועים לפי הטעם שלך</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <hr class="divider" style="margin: 20px 0" />
+
+        <div class="smart-queue-area">
+          <div class="notify-text" style="margin-bottom: 10px">
+            <span class="notify-head" style="color: #c53e5c"
+              >מעקב ספציפי (התראות חכמות)
+              <i class="fas fa-star" style="color: #c53e5c"></i
+            ></span>
+            <span class="notify-desc"
+              >יש אמן, קבוצה או פסטיבל שחשובים לך? הוסף אותם כאן וקבל התראה
+              ממוקדת כשתעלה מכירה מתאימה</span
+            >
+          </div>
+
+          <div class="smart-add-box">
+            <input
+              type="text"
+              id="artistInput"
+              placeholder="הקלד שם (למשל: עומר אדם...)"
+              onkeypress="handleEnter(event)"
+            />
+            <button class="add-btn" onclick="addArtistTag()">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <div class="selected-tags-container" id="tagsContainer"></div>
+        </div>
+      </section>
+
+      <section class="block glass-panel">
+        <h2 class="block-title">איך לשלוח לך עדכונים?</h2>
+        <div class="channels-row">
+          <label class="channel-check">
+            <input type="checkbox" checked />
+            <div class="channel-box">
+              <i class="fas fa-mobile-alt"></i>
+              <span>Push</span>
+            </div>
+          </label>
+          <label class="channel-check">
+            <input type="checkbox" />
+            <div class="channel-box">
+              <i class="fab fa-whatsapp"></i>
+              <span>WhatsApp</span>
+            </div>
+          </label>
+          <label class="channel-check">
+            <input type="checkbox" />
+            <div class="channel-box">
+              <i class="far fa-envelope"></i>
+              <span>Email</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <button
+        id="finishBtn"
+        class="finish-btn"
+        type="button"
+        onclick="savePreferences()"
+      >
+        תארגנו לי Plan B !
+      </button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/services/apiService.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/pages/userPreferencesPage.js"></script>
+  </body>
+</html>
+
+
+
+
