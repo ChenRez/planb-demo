@@ -16,12 +16,6 @@ document.querySelector(".eye-icon").addEventListener("click", function () {
 function handleLogin(event) {
   event.preventDefault();
 
-  // בדמו הסטטי (GitHub Pages) אין שרת — כל לחיצת "התחברות" עוברת ישר למסך הבית
-  if (location.hostname.endsWith("github.io")) {
-    window.location.href = "home.html";
-    return;
-  }
-
   const btn = event.submitter;
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';

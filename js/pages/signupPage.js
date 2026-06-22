@@ -93,6 +93,12 @@ function collectSignupData() {
 }
 
 function validateSignup(d) {
+  // דמו: ללא אימות שדות — מאפשרים ניווט חופשי בין המסכים.
+  if (!d.firstName) d.firstName = "אורח";
+  return true;
+}
+
+function validateSignupOriginal(d) {
   clearErrors();
   var valid = true;
 

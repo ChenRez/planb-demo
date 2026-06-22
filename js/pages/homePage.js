@@ -37,31 +37,6 @@ var _lastMinuteCards = [];
 var _hasPrefs = false;
 var _currentForYouTab = 'personalized';
 
-/* ─── ערבוב תצוגה — פיזור פריטים כך שלא יוצגו מקובצים לפי קטגוריה ───
-   שזירה במחזורים (round-robin): פריט אחד מכל קטגוריה בכל סבב,
-   תוך שמירת הסדר המקורי בתוך כל קטגוריה. */
-function mixByCategory(items) {
-  if (!Array.isArray(items) || items.length < 3) return items ? items.slice() : [];
-  var groups = {};
-  var order = [];
-  items.forEach(function (it) {
-    var key = it.cat || '';
-    if (!groups[key]) { groups[key] = []; order.push(key); }
-    groups[key].push(it);
-  });
-  if (order.length < 2) return items.slice();
-  var mixed = [];
-  var added = true;
-  while (added) {
-    added = false;
-    for (var i = 0; i < order.length; i++) {
-      var g = groups[order[i]];
-      if (g.length) { mixed.push(g.shift()); added = true; }
-    }
-  }
-  return mixed;
-}
-
 $(document).ready(function () {
   ajaxCall("GET", "/api/listings", null, loadListingsSuccess, loadListingsError);
   ajaxCall("GET", "/api/categories", null, renderCategoryChips, function () {});
@@ -157,7 +132,6 @@ function renderForYouSection() {
             qty:   d.quantity || 1
           };
         });
-        _personalizedCards = mixByCategory(_personalizedCards);
         renderForYouCards(_personalizedCards);
       },
       function() {
@@ -167,8 +141,8 @@ function renderForYouSection() {
   } else {
     var highlighted = allListings.filter(function(l) { return l.status === "Highlighted"; });
     if (highlighted.length === 0) highlighted = allListings.slice();
-    _personalizedCards = mixByCategory(highlighted);
-    renderForYouCards(_personalizedCards.slice(0, 6));
+    _personalizedCards = highlighted;
+    renderForYouCards(highlighted.slice(0, 6));
   }
 }
 
@@ -501,7 +475,7 @@ function renderMainContent() {
     resultsView.style.display = "block";
     const catsArray = Array.from(selectedCategories);
     document.getElementById("resultsTitle").innerText = `תוצאות עבור: ${catsArray.join(", ")}`;
-    const filteredEvents = mixByCategory(allListings.filter((ev) => selectedCategories.has(ev.cat)));
+    const filteredEvents = allListings.filter((ev) => selectedCategories.has(ev.cat));
     injectCardsToResults(filteredEvents);
   }
 }
