@@ -45,7 +45,7 @@ function mediaUrl(path) {
     try {
         if (!localStorage.getItem("userId")) {
             localStorage.setItem("userId", "100");
-            localStorage.setItem("firstName", "נופר");
+            localStorage.setItem("firstName", "עדי");
             localStorage.setItem("role", "user");
         }
     } catch (e) {}
@@ -157,7 +157,7 @@ var DemoApi = (function () {
         14:  { userId: 14,  firstName: "שירה", lastName: "אזולאי", trustScore: 4.3, totalSales: 8,  totalPurchases: 12, createdAt: "2024-01-15", avatarUrl: null, phone: "0544455566", email: "shira@example.com",  city: "ירושלים" },
         15:  { userId: 15,  firstName: "איתי",  lastName: "מזרחי",  trustScore: 5.0, totalSales: 60, totalPurchases: 3,  createdAt: "2022-05-09", avatarUrl: null, phone: "0537778899", email: "itai@example.com",   city: "נתניה" },
         16:  { userId: 16,  firstName: "נועה",  lastName: "פרידמן", trustScore: 4.5, totalSales: 12, totalPurchases: 7,  createdAt: "2023-09-28", avatarUrl: null, phone: "0526667788", email: "noa@example.com",    city: "רמת גן" },
-        100: { userId: 100, firstName: "נופר", lastName: "דמו",    trustScore: 4.7, totalSales: 3,  totalPurchases: 5,  createdAt: "2024-02-01", avatarUrl: null, phone: "0501234567", email: "nofar@example.com",  city: "תל אביב-יפו", profileDescription: "אוהבת הופעות, סטנדאפ ופסטיבלים." }
+        100: { userId: 100, firstName: "עדי", lastName: "",    trustScore: 4.7, totalSales: 3,  totalPurchases: 5,  createdAt: "2024-02-01", avatarUrl: null, phone: "0501234567", email: "nofar@example.com",  city: "תל אביב-יפו", profileDescription: "אוהבת הופעות, סטנדאפ ופסטיבלים." }
     };
 
     function L(o) {
@@ -357,8 +357,8 @@ var DemoApi = (function () {
 
         // ── POST ──────────────────────────────────────────
         if (method === "POST") {
-            if (path === "/api/auth/login")    return ok({ userId: 100, firstName: "נופר", role: "user" });
-            if (path === "/api/auth/register") return ok({ userId: 100, firstName: "נופר", role: "user" });
+            if (path === "/api/auth/login")    return ok({ userId: 100, firstName: "עדי", role: "user" });
+            if (path === "/api/auth/register") return ok({ userId: 100, firstName: "עדי", role: "user" });
             if (path === "/api/favorites") {
                 var lid = data && data.listingId;
                 if (lid) { var a = getFavIds(); if (a.indexOf(lid) === -1) a.push(lid); setFavIds(a); }
